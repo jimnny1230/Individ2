@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>NINO DESKTOP</title>
+<style>
+:root{--bg:#fff7f2;--panel:#fff;--ink:#46352f;--accent:#e58b69;--accent2:#f6d5c5;--line:#eeded5;--muted:#8b7770}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(140deg,#fff7f2,#fce8df);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+button,input,textarea,select{font:inherit}button{border:0;border-radius:14px;padding:11px 14px;background:var(--accent);color:white;font-weight:700;cursor:pointer}button.secondary{background:var(--accent2);color:var(--ink)}button.ghost{background:#f8eee9;color:var(--ink);border:1px solid var(--line)}button:active{transform:scale(.98)}
+header{position:sticky;top:0;z-index:5;background:#fffaf7eF;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:13px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;letter-spacing:2px}.small{font-size:12px;color:var(--muted)}main{max-width:900px;margin:auto;padding:16px}.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:12px}.tabs button{white-space:nowrap}.tabs button.active{box-shadow:0 0 0 3px #e58b6940}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card{background:#ffffffd9;border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 8px 24px #8a50300b}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,42%);gap:14px;align-items:center}.hero img{width:100%;max-height:360px;object-fit:contain;border-radius:16px;background:#fff1e9;min-height:150px}.hero h1{font-size:clamp(23px,5vw,34px);margin:0 0 10px}.statrow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.pill{background:#fff0e8;border:1px solid var(--line);border-radius:99px;padding:7px 10px;font-size:13px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.section-title{margin:0 0 12px;font-size:18px}.quote{font-size:17px;line-height:1.6;min-height:52px}.muted{color:var(--muted)}.hidden{display:none!important}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:700}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:12px;background:#fffaf7;color:var(--ink)}textarea{min-height:90px;resize:vertical}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}.photo{border:1px solid var(--line);border-radius:14px;padding:8px;background:white;min-width:0}.photo img{width:100%;height:125px;object-fit:cover;border-radius:9px;background:#fff1e9}.photo p{font-size:12px;overflow-wrap:anywhere}.photo button{padding:7px 9px;font-size:12px}.progress{height:8px;background:#f4e5dd;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:var(--accent)}.timer{font-size:42px;font-weight:900;text-align:center;margin:12px}.notice{background:#fff2d9;border:1px solid #f0d8a8;border-radius:12px;padding:11px;font-size:13px;line-height:1.5}.footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 8px}
+@media(max-width:520px){main{padding:12px}.hero{grid-template-columns:1fr 38%}.hero img{min-height:130px}.hero h1{font-size:23px}.hero .actions button{padding:10px;font-size:13px}.card{padding:13px}}
+</style>
+</head>
+<body>
+<header><div><div class="logo">NINO DESKTOP</div><div class="small">offline fan companion</div></div><button class="ghost" id="settingsTop">⚙ 설정</button></header>
+<main>
+<nav class="tabs" id="tabs">
+<button class="active" data-page="home">홈</button><button data-page="collection">사진 도감</button><button data-page="diary">일기·메모</button><button data-page="timer">집중 타이머</button><button data-page="fun">운세·상황극</button><button data-page="settings">설정</button>
+</nav>
+<section id="home" class="page">
+<div class="card hero"><div><div class="small" id="today"></div><h1 id="greeting">니노와 함께하는 하루</h1><div class="quote" id="line">사진을 추가하면 니노가 여기에 등장해.</div><div class="statrow"><span class="pill" id="affection">♡ 호감도 0</span><span class="pill" id="streak">★ 연속 출석 0일</span><span class="pill" id="collectionStat">사진 0장</span></div><div class="actions"><button id="talk">대화하기</button><button id="pat" class="secondary">쓰다듬기</button><button id="checkin" class="secondary">오늘 출석</button><button id="gift" class="ghost">선물하기</button></div></div><img id="heroPhoto" alt="니노 사진" src=""></div>
+<div class="grid" style="margin-top:14px"><div class="card"><h2 class="section-title">오늘의 기분</h2><p id="moodText">아직 기분을 정하지 않았어.</p><button class="ghost" id="changeMood">기분 확인하기</button></div><div class="card"><h2 class="section-title">오늘의 미션</h2><p id="mission">니노 사진을 설정에 추가해 봐.</p><button class="ghost" id="missionDone">미션 완료</button></div><div class="card"><h2 class="section-title">기념일 카운트다운</h2><p id="countdown">설정에서 기념일을 추가할 수 있어.</p></div></div>
+</section>
+<section id="collection" class="page hidden"><div class="card"><h2 class="section-title">니노 사진 도감</h2><p class="muted">사진을 추가하고, 마음에 드는 사진을 메인 사진으로 지정해.</p><div class="progress"><span id="collectionProgress" style="width:0%"></span></div><p id="collectionText" class="small">수집률 0%</p><div class="photo-grid" id="photoGrid"></div></div></section>
+<section id="diary" class="page hidden"><div class="grid"><div class="card"><h2 class="section-title">오늘의 일기</h2><div class="field"><label>날짜</label><input type="date" id="diaryDate"></div><div class="field"><label>일기</label><textarea id="diaryText" placeholder="오늘 니노와 함께한 일을 적어 봐."></textarea></div><button id="saveDiary">일기 저장</button><div id="diaryList"></div></div><div class="card"><h2 class="section-title">메모</h2><div class="field"><label>메모 내용</label><textarea id="memoText" placeholder="덕질 메모, 할 일, 기념일 등"></textarea></div><button id="saveMemo">메모 저장</button><div id="memoList"></div></div></div></section>
+<section id="timer" class="page hidden"><div class="card"><h2 class="section-title">니노와 집중하기</h2><p class="muted">집중 25분, 휴식 5분. 설정에서 시간을 바꿀 수도 있어.</p><div class="timer" id="timerDisplay">25:00</div><p id="timerMode" style="text-align:center">집중 시간</p><div class="actions" style="justify-content:center"><button id="timerStart">시작</button><button class="secondary" id="timerPause">일시정지</button><button class="ghost" id="timerReset">초기화</button></div><p id="studyTotal" style="text-align:center">누적 집중 시간: 0분</p><p id="timerMessage" style="text-align:center"></p></div></section>
+<section id="fun" class="page hidden"><div class="grid"><div class="card"><h2 class="section-title">오늘의 니노 포춘</h2><p id="fortuneText">버튼을 눌러 오늘의 운세를 확인해.</p><button id="fortuneBtn">운세 뽑기</button></div><div class="card"><h2 class="section-title">랜덤 상황극</h2><p id="scenarioText">오늘 니노는 어떤 상황일까?</p><button id="scenarioBtn">상황 뽑기</button></div><div class="card"><h2 class="section-title">랜덤 사진</h2><p>저장한 사진 중 하나를 무작위로 골라 줘.</p><button id="randomPhoto">사진 뽑기</button></div></div></section>
+<section id="settings" class="page hidden">
+<div class="card"><h2 class="section-title">프로그램 꾸미기</h2><div class="notice">인터넷 없이도 사용할 수 있어. 사진은 이 기기 안에 저장돼. 사진을 많이 추가하면 브라우저 저장 공간이 부족할 수 있으니 중요한 사진과 기록은 백업해 둬. 브라우저 데이터 삭제 시 저장 내용이 사라질 수 있어.</div>
+<div class="field"><label>사진 추가 (여러 장 선택 가능)</label><input type="file" id="photoFiles" accept="image/*" multiple><span class="small">선택한 사진은 프로그램 안의 사진 도감에 추가돼. JPG, PNG, WEBP 권장.</span></div>
+<div class="field"><label>캐릭터 이름</label><input id="characterName" value="니노 선데이"></div>
+<div class="field"><label>인사말 / 메인 문구</label><input id="customGreeting" value="니노와 함께하는 하루"></div>
+<div class="field"><label>대사 목록 (한 줄에 하나씩)</label><textarea id="dialogueInput"></textarea></div>
+<div class="field"><label>기념일 이름</label><input id="eventName" placeholder="예: 니노 생일"></div>
+<div class="field"><label>기념일 날짜</label><input id="eventDate" type="date"></div>
+<div class="field"><label>집중 시간 (분)</label><input id="focusMinutes" type="number" min="1" max="180" value="25"></div>
+<div class="field"><label>휴식 시간 (분)</label><input id="breakMinutes" type="number" min="1" max="60" value="5"></div>
+<div class="actions"><button id="saveSettings">설정 저장</button><button class="secondary" id="exportData">백업 파일 내보내기</button><label class="ghost" style="border-radius:14px;padding:11px 14px;font-weight:700;cursor:pointer">백업 복원 <input type="file" id="importData" accept="application/json" hidden></label><button class="ghost" id="exportPhotos">사진 원본 내보내기 안내</button></div>
+<p class="small">사진, 대사, 이름, 테마 설정은 이 화면에서 변경할 수 있어. 프로그램 코드를 직접 고치지 않아도 돼.</p>
+</div>
+<div class="card" style="margin-top:14px"><h2 class="section-title">데이터 관리</h2><p class="muted">백업 파일에는 설정, 출석, 호감도, 일기와 메모가 포함돼. 사진 파일은 용량을 줄이기 위해 백업에 포함하지 않아.</p><button class="ghost" id="resetData">기록 초기화</button></div>
+</section>
+<div class="footer">NINO DESKTOP · 기기 안에서 동작하도록 만든 오프라인 버전</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const defaults={
+ name:"니노 선데이", greeting:"니노와 함께하는 하루",
+ dialogues:["오늘도 왔네. 잘 지냈어?","무리하지 말고 쉬엄쉬엄 해.","오늘은 뭐 하고 있었어?","왔구나. 기다렸다고 하면 믿을래?","오늘 하루도 수고했어.","음, 나한테 할 말 있어?"],
+ photos:[], affection:0, checkins:[], diaries:{}, memos:[], unlocked:[], mainPhoto:null,
+ eventName:"",eventDate:"",focusMinutes:25,breakMinutes:5,studyMinutes:0,lastMood:"아직 비밀",missionDate:"",missionDone:false
+};
+let data; try{data=Object.assign({},defaults,JSON.parse(localStorage.getItem("ninoDesktopData")||"{}"));}catch(e){data={...defaults};}
+function persist(){try{localStorage.setItem("ninoDesktopData",JSON.stringify(data));}catch(e){alert("저장 공간이 부족해. 사진을 일부 줄인 뒤 다시 시도해 줘.");}}
+function todayISO(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function dateLabel(s){if(!s)return "";return s.replaceAll("-",". ");}
+function switchPage(page){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("hidden",p.id!==page));document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));if(page==="collection")renderPhotos();if(page==="diary")renderDiary();if(page==="settings")loadSettings();}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>switchPage(b.dataset.page)));
+$("settingsTop").onclick=()=>switchPage("settings");
+function photoById(id){return data.photos.find(p=>p.id===id);}
+function chosenPhoto(){return photoById(data.mainPhoto)||data.photos[0];}
+function setMain(id){data.mainPhoto=id;persist();render();}
+function render(){
+ const today=todayISO();$("today").textContent=dateLabel(today);$("greeting").textContent=data.greeting||"니노와 함께하는 하루";
+ $("affection").textContent=`♡ 호감도 ${data.affection||0}`;
+ const checks=[...new Set(data.checkins||[])].sort();let streak=0,d=new Date();while(checks.includes(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`)){streak++;d.setDate(d.getDate()-1);}
+ $("streak").textContent=`★ 연속 출석 ${streak}일`; $("collectionStat").textContent=`사진 ${(data.photos||[]).length}장`;
+ const p=chosenPhoto();$("heroPhoto").src=p?p.src:"";$("heroPhoto").style.display=p?"block":"none";
+ if(!p){$("line").textContent="설정에서 니노 사진을 추가해 줘.";}
+ $("moodText").textContent=data.lastMood||"아직 기분을 정하지 않았어.";
+ $("mission").textContent=data.missionDate===today?(data.missionDone?"오늘의 미션을 완료했어.":"니노에게 인사하고 출석하기"):"니노에게 인사하고 출석하기";
+ $("missionDone").textContent=data.missionDone&&data.missionDate===today?"완료됨":"미션 완료";
+ if(data.eventDate){let diff=Math.ceil((new Date(data.eventDate+"T00:00:00")-new Date(today+"T00:00:00"))/86400000);$("countdown").textContent=diff===0?`${data.eventName||"기념일"}이 오늘이야!`:diff>0?`${data.eventName||"기념일"}까지 ${diff}일`:`${data.eventName||"기념일"}이 ${Math.abs(diff)}일 지났어.`;}else $("countdown").textContent="설정에서 기념일을 추가할 수 있어.";
+ $("collectionProgress").style.width=(data.photos.length?Math.round(data.unlocked.length/data.photos.length*100):0)+"%";$("collectionText").textContent=`수집률 ${data.photos.length?Math.round(data.unlocked.length/data.photos.length*100):0}%`;
+ $("studyTotal").textContent=`누적 집중 시간: ${data.studyMinutes||0}분`;
+}
+function addAffection(n){data.affection=Math.max(0,(data.affection||0)+n);persist();render();}
+function random(arr){return arr[Math.floor(Math.random()*arr.length)];}
+$("talk").onclick=()=>{$("line").textContent=random(data.dialogues.length?data.dialogues:defaults.dialogues);addAffection(1);};
+$("pat").onclick=()=>{$("line").textContent=random(["……뭐 하는 거야.","기분은 나쁘지 않네.","갑자기? 뭐, 싫다는 건 아니지만.","한 번만이야.","오늘은 기분이 괜찮네."]);addAffection(2);};
+$("gift").onclick=()=>{let gift=random([{n:"꽃",r:"꽃을 주는 거야? 고마워."},{n:"간식",r:"이건 나 주는 거야? 잘 먹을게."},{n:"책",r:"책이라… 나중에 읽어 볼게."},{n:"작은 선물",r:"이런 걸 준비했어? 의외네."}]);$("line").textContent=`${gift.n}을(를) 받았어. “${gift.r}”`;addAffection(3);};
+$("checkin").onclick=()=>{let t=todayISO();if(data.checkins.includes(t)){alert("오늘은 이미 출석했어.");return;}data.checkins.push(t);data.affection+=2;data.missionDate=t;data.missionDone=true;if(data.photos.length){let locked=data.photos.filter(p=>!data.unlocked.includes(p.id));if(locked.length&&data.checkins.length%3===0){let p=random(locked);data.unlocked.push(p.id);alert(`출석 보상! 사진 도감에 "${p.name}" 사진이 등록됐어.`);}}persist();render();$("line").textContent="출석했네. 내일도 올 거지?";};
+$("changeMood").onclick=()=>{data.lastMood=random(["기분 좋음","조금 피곤함","심심함","집중하고 싶음","느긋함","괜히 들뜸"]);persist();render();$("line").textContent=`오늘 니노의 기분은 '${data.lastMood}'이야.`;};
+$("missionDone").onclick=()=>{let t=todayISO();if(data.missionDate===t&&data.missionDone){alert("오늘 미션은 이미 완료했어.");return;}data.missionDate=t;data.missionDone=true;data.affection+=1;persist();render();};
+function renderPhotos(){let grid=$("photoGrid");grid.innerHTML="";if(!data.photos.length){grid.innerHTML='<p class="muted">아직 사진이 없어. 설정에서 사진을 추가해 줘.</p>';return;}data.photos.forEach(p=>{let div=document.createElement("div");div.className="photo";let img=document.createElement("img");img.src=p.src;img.alt=p.name;let title=document.createElement("p");title.textContent=p.name+(data.mainPhoto===p.id?" · 메인":"");let use=document.createElement("button");use.textContent="메인으로";use.onclick=()=>setMain(p.id);let unlock=document.createElement("p");unlock.className="small";unlock.textContent=data.unlocked.includes(p.id)?"해금됨":"도감 미등록";let del=document.createElement("button");del.className="ghost";del.style.marginTop="5px";del.textContent="삭제";del.onclick=()=>{if(confirm("이 사진을 삭제할까?")){data.photos=data.photos.filter(x=>x.id!==p.id);data.unlocked=data.unlocked.filter(x=>x!==p.id);if(data.mainPhoto===p.id)data.mainPhoto=null;persist();render();renderPhotos();}};div.append(img,title,use,unlock,del);grid.append(div);});}
+$("randomPhoto").onclick=()=>{if(!data.photos.length){alert("설정에서 사진을 먼저 추가해 줘.");return;}let p=random(data.photos);data.mainPhoto=p.id;persist();render();$("line").textContent=`오늘의 랜덤 사진: ${p.name}`;};
+$("photoFiles").addEventListener("change",async e=>{for(const f of [...e.target.files]){if(!f.type.startsWith("image/"))continue;let src=await new Promise((resolve,reject)=>{let r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(f);});data.photos.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),name:f.name.replace(/\.[^.]+$/,""),src});}persist();render();renderPhotos();e.target.value="";alert("사진을 추가했어. 설정 저장 버튼을 누르지 않아도 사진 목록은 자동 저장돼.");});
+function loadSettings(){$("characterName").value=data.name||"니노 선데이";$("customGreeting").value=data.greeting||"";$("dialogueInput").value=(data.dialogues||[]).join("\n");$("eventName").value=data.eventName||"";$("eventDate").value=data.eventDate||"";$("focusMinutes").value=data.focusMinutes||25;$("breakMinutes").value=data.breakMinutes||5;}
+$("saveSettings").onclick=()=>{data.name=$("characterName").value.trim()||"니노 선데이";data.greeting=$("customGreeting").value.trim()||"니노와 함께하는 하루";data.dialogues=$("dialogueInput").value.split("\n").map(s=>s.trim()).filter(Boolean);data.eventName=$("eventName").value.trim();data.eventDate=$("eventDate").value;data.focusMinutes=Math.max(1,Math.min(180,Number($("focusMinutes").value)||25));data.breakMinutes=Math.max(1,Math.min(60,Number($("breakMinutes").value)||5));persist();resetTimer();render();alert("설정을 저장했어.");};
+function renderDiary(){let date=$("diaryDate").value||todayISO();$("diaryDate").value=date;$("diaryText").value=data.diaries[date]||"";let list=$("diaryList");list.innerHTML="<h3 class='section-title'>저장된 일기</h3>";Object.keys(data.diaries).sort().reverse().forEach(d=>{let p=document.createElement("p");p.textContent=`${d}: ${data.diaries[d]}`;list.append(p);});let ml=$("memoList");ml.innerHTML="<h3 class='section-title'>저장된 메모</h3>";data.memos.forEach((m,i)=>{let row=document.createElement("div");row.style.borderTop="1px solid var(--line)";row.style.padding="8px 0";let p=document.createElement("p");p.textContent=m.text;let b=document.createElement("button");b.className="ghost";b.textContent="삭제";b.onclick=()=>{data.memos.splice(i,1);persist();renderDiary();};row.append(p,b);ml.append(row);});}
+$("diaryDate").onchange=()=>{let d=$("diaryDate").value;$("diaryText").value=data.diaries[d]||"";};
+$("saveDiary").onclick=()=>{let d=$("diaryDate").value||todayISO();data.diaries[d]=$("diaryText").value;persist();renderDiary();alert("일기를 저장했어.");};
+$("saveMemo").onclick=()=>{let t=$("memoText").value.trim();if(!t)return;data.memos.unshift({text:t,date:todayISO()});$("memoText").value="";persist();renderDiary();};
+const fortunes=["작은 일을 하나 끝내면 기분이 좋아질 거야.","오늘은 좋아하는 것을 천천히 즐겨 봐.","뜻밖의 좋은 장면을 발견할지도 몰라.","무리하지 말고 쉬는 시간도 챙겨.","미뤄 둔 일을 시작하기 좋은 날이야.","오늘의 행운의 색은 주황색.","오늘의 행운의 색은 연두색.","오늘은 네 편이 되어 주는 말을 기억해."];
+const scenarios=["비 오는 날, 니노는 창가에 앉아 빗소리를 듣고 있어.","늦은 밤, 니노가 조용히 말을 걸어와.","휴일 오후, 니노는 아무 계획도 세우지 않았어.","공부를 마치자 니노가 수고했다고 말해.","추운 날, 니노는 따뜻한 음료를 들고 있어.","바람이 부는 날, 니노가 밖에 나갈 준비를 해."];
+$("fortuneBtn").onclick=()=>{$("fortuneText").textContent=random(fortunes);if(data.photos.length){let p=random(data.photos);data.mainPhoto=p.id;persist();render();}};
+$("scenarioBtn").onclick=()=>{$("scenarioText").textContent=random(scenarios);$("line").textContent=$("scenarioText").textContent;if(data.photos.length){data.mainPhoto=random(data.photos).id;persist();render();}};
+let timerInt=null,seconds=25*60,mode="focus",running=false;
+function resetTimer(){clearInterval(timerInt);timerInt=null;running=false;mode="focus";seconds=(data.focusMinutes||25)*60;updateTimer();}
+function updateTimer(){$("timerDisplay").textContent=`${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`;$("timerMode").textContent=mode==="focus"?"집중 시간":"휴식 시간";$("timerStart").textContent=running?"진행 중":"시작";}
+$("timerStart").onclick=()=>{if(running)return;running=true;timerInt=setInterval(()=>{seconds--;updateTimer();if(seconds<=0){clearInterval(timerInt);running=false;if(mode==="focus"){data.studyMinutes=(data.studyMinutes||0)+(data.focusMinutes||25);persist();mode="break";seconds=(data.breakMinutes||5)*60;$("timerMessage").textContent="집중 완료! 잠깐 쉬어 가자.";addAffection(1);}else{mode="focus";seconds=(data.focusMinutes||25)*60;$("timerMessage").textContent="휴식 끝. 다시 시작할 준비가 됐어."; }updateTimer();},1000);updateTimer();};
+$("timerPause").onclick=()=>{clearInterval(timerInt);timerInt=null;running=false;updateTimer();};
+$("timerReset").onclick=resetTimer;
+$("exportData").onclick=()=>{let copy={...data,photos:[],mainPhoto:null};let blob=new Blob([JSON.stringify(copy,null,2)],{type:"application/json"});downloadBlob(blob,"nino-desktop-backup.json");};
+function downloadBlob(blob,name){let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+$("importData").onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let imported=JSON.parse(await f.text());data={...defaults,...imported,photos:data.photos};persist();loadSettings();render();alert("백업을 복원했어. 기존 사진은 유지돼.");}catch(err){alert("백업 파일을 읽을 수 없어.");}e.target.value="";};
+$("exportPhotos").onclick=()=>alert("사진은 사진 앱이나 파일 앱에 원본을 보관해 줘. 이 프로그램의 백업 파일에는 사진이 포함되지 않아. 다른 기기에서 쓰려면 사진 파일을 다시 추가해야 해.");
+$("resetData").onclick=()=>{if(confirm("호감도, 출석, 일기, 메모, 설정을 초기화할까? 사진도 함께 삭제돼.")){localStorage.removeItem("ninoDesktopData");data={...defaults,photos:[]};persist();loadSettings();render();renderPhotos();renderDiary();resetTimer();}};
+$("missionDone").addEventListener("click",()=>{});
+$("diaryDate").value=todayISO();loadSettings();render();renderPhotos();renderDiary();resetTimer();
+</script>
+</body></html>
