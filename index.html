@@ -91,7 +91,7 @@ textarea{min-height:90px;resize:vertical}
 <section id="photos" class="page hidden">
 <div class="card">
 <h2 class="section-title">업로드한 사진 확인</h2>
-<p class="muted">업로드한 추억의 사진들을 모아보고 관리할 수 있어.</p>
+<p class="muted">업로드한 추억의 사진들을 모아보고 관리할 수 있어[span_8](start_span)[span_8](end_span).</p>
 <div class="photo-grid" id="photoGrid" style="margin-top:14px"></div>
 </div>
 </section>
@@ -106,7 +106,7 @@ textarea{min-height:90px;resize:vertical}
 <section id="timer" class="page hidden">
 <div class="card">
 <h2 class="section-title">뽀모도로 집중 타이머</h2>
-<p class="muted">집중 타이머를 채우면 '오늘의 미션'을 달성하고 호감도와 선물을 얻을 수 있어!</p>
+<p class="muted">집중 타이머를 채우면 '오늘의 미션'을 달성하고 호감도와 선물을 얻을 수 있어[span_9](start_span)[span_9](end_span)!</p>
 <div class="timer" id="timerDisplay">25:00</div>
 <p id="timerMode" style="text-align:center;font-weight:bold;color:#168e99">집중 시간</p>
 <div class="actions" style="justify-content:center"><button id="timerStart">시작</button><button class="secondary" id="timerPause">일시정지</button><button class="ghost" id="timerReset">초기화</button></div>
@@ -128,10 +128,10 @@ textarea{min-height:90px;resize:vertical}
 <div class="notice">데이터는 기기 내 브라우저에 안전하게 저장됩니다. 중요한 데이터는 백업해 두세요.</div>
 <div class="field"><label>사진 업로드 (여러 장 가능)</label><input type="file" id="photoFiles" accept="image/*" multiple></div>
 <div class="field"><label>캐릭터 이름</label><input id="characterName" value="니노"></div>
-<div class="field"><label>인사말 / 메인 문구</label><input id="customGreeting" value="니노의 방에 온 걸 환영해!"></div>
+<div class="field"><label>인사말 / 메인 문구[span_10](start_span)[span_10](end_span)</label><input id="customGreeting" value="니노의 방에 온 걸 환영해!"></div>
 <div class="field"><label>대사 목록 (한 줄에 하나씩)</label><textarea id="dialogueInput"></textarea></div>
-<div class="field"><label>집중 시간 (분)</label><input id="focusMinutes" type="number" min="1" max="180" value="25"></div>
-<div class="field"><label>휴식 시간 (분)</label><input id="breakMinutes" type="number" min="1" max="60" value="5"></div>
+<div class="field"><label>집중 시간 (분)[span_11](start_span)[span_11](end_span)</label><input id="focusMinutes" type="number" min="1" max="180" value="25"></div>
+<div class="field"><label>휴식 시간 (분)[span_12](start_span)[span_12](end_span)</label><input id="breakMinutes" type="number" min="1" max="60" value="5"></div>
 <div class="actions" style="margin-top:10px"><button id="saveSettings">설정 저장</button><button class="secondary" id="exportData">백업 내보내기</button><label class="ghost" style="border-radius:14px;padding:11px 14px;font-weight:700;cursor:pointer">백업 복원 <input type="file" id="importData" accept="application/json" hidden></label></div>
 </div>
 <div class="card" style="margin-top:14px"><h2 class="section-title">데이터 초기화</h2><button class="ghost" id="resetData">전체 기록 초기화</button></div>
@@ -145,7 +145,7 @@ const BUNDLED_NINO = "nino_default.png";
 const $=id=>document.getElementById(id);
 const GIFT_TYPES = [
   {id:"flower", name:"알록달록 꽃다발", msg:"예쁜 꽃이네! 기분이 상쾌해져."},
-  {id:"snack", name:"달콤한 간식", map:"간식이다! 맛있게 잘 먹을게."},
+  {id:"snack", name:"달콤한 간식", msg:"간식이다! 맛있게 잘 먹을게."},
   {id:"book", name:"재미있는 책", msg:"읽고 싶었던 책이야. 고마워!"},
   {id:"star", name:"반짝이는 별조각", msg:"빛나는 보석 같아. 예쁘다!"}
 ];
@@ -176,11 +176,9 @@ function checkDailyReset(){
    data.todayDate=t;
    data.todayTalkCount=0;
    data.currentSessionMinutes=0;
-   // 오늘의 미션 랜덤 배정
    data.missionId=Math.floor(Math.random()*MISSIONS.length);
    data.missionDate=t;
    data.missionDone=false;
-   // 오늘의 기분 하루에 한번 고정
    let moods=["기분 최고 😆","조금 나른함 🥱","집중 모드 🔥","상쾌함 ✨","몽글몽글 💭"];
    data.lastMood=moods[Math.floor(Math.random()*moods.length)];
    persist();
@@ -216,13 +214,10 @@ function render(){
 
  $("moodText").textContent=data.lastMood;
  
- // 미션 렌더링
  let currentMission=MISSIONS[data.missionId]||MISSIONS[0];
  $("missionText").textContent=currentMission.text + (data.missionDone?" (완료됨 ✔)":"");
  $("missionDone").textContent=data.missionDone?"완료 보상 수령 완료":"미션 완료하기";
- $("missionDone.disabled")=data.missionDone;
 
- // 인벤토리 렌더링
  renderInventoryList();
  $("studyTotal").textContent=`누적 집중 시간: ${data.studyMinutes||0}분`;
 }
@@ -230,13 +225,10 @@ function render(){
 function addAffection(n){data.affection=Math.max(0,(data.affection||0)+n);checkAffectionRewards();persist();render();}
 
 function checkAffectionRewards(){
- // 특정 호감도 달성 보상 (예: 10, 30, 50 등에서 선물 지급)
  if(data.affection>0 && data.affection%10===0){
    let gift=GIFT_TYPES[Math.floor(Math.random()*GIFT_TYPES.length)];
-   if(!data.inventory.includes(gift.id)){
-     data.inventory.push(gift.id);
-     alert(`호감도 상승 보상으로 [${gift.name}] 선물이 인벤토리에 들어왔어!`);
-   }
+   data.inventory.push(gift.id);
+   alert(`호감도 상승 보상으로 [${gift.name}] 선물이 인벤토리에 들어왔어[span_13](start_span)[span_13](end_span)!`);
  }
 }
 
@@ -262,17 +254,16 @@ $("checkin").onclick=()=>{
  data.inventory.push(randomGift);
  persist();
  render();
- $("line").textContent="출석 체크 완료! 선물도 하나 챙겨뒀어.";
+ $("line").textContent="출석 체크 완료! 선물도 하나 챙겨뒀어[span_14](start_span)[span_14](end_span).";
 };
 
 $("checkMood").onclick=()=>{
- $("line").textContent=`오늘 니노의 기분은 '${data.lastMood}'이야. 하루에 한 번만 바뀐답니다!`;
+ $("line").textContent=`오늘 니노의 기분은 '${data.lastMood}'이야. 하루에 한 번만 바뀐답니다[span_15](start_span)[span_15](end_span)!`;
 };
 
-// 선물 하기 버튼 (인벤토리에서 아이템 선택)
 $("openGiftModal").onclick=()=>{
  if(!data.inventory.length){
-   alert("보유한 선물이 없어! 출석이나 미션을 완료해서 선물을 얻어봐.");
+   alert("보유한 선물이 없어! 출석이나 미션을 완료해서 선물을 얻어봐[span_16](start_span)[span_16](end_span).");
    return;
  }
  let giftNames = data.inventory.map((gId, idx)=>{
@@ -280,7 +271,7 @@ $("openGiftModal").onclick=()=>{
    return `${idx+1}. ${g?g.name:gId}`;
  }).join("\n");
  
- let choice = prompt(`선물할 물건 번호를 선택해줘:\n\n${giftNames}`);
+ let choice = prompt(`선물할 물건 번호를 선택해줘[span_17](start_span)[span_17](end_span):\n\n${giftNames}`);
  if(choice===null)return;
  let idx = parseInt(choice)-1;
  if(isNaN(idx)||idx<0||idx>=data.inventory.length){
@@ -289,7 +280,7 @@ $("openGiftModal").onclick=()=>{
  }
  let usedId = data.inventory.splice(idx,1)[0];
  let giftObj = GIFT_TYPES.find(x=>x.id===usedId);
- $("line").textContent=`${giftObj.name}을(를) 선물했다! 니노: "${giftObj.msg}"`;
+ $("line").textContent=`${giftObj.name}을(를) 선물했다! 니노: "${giftObj.msg}[span_18](start_span)"[span_18](end_span)`;
  addAffection(5);
  render();
 };
@@ -298,7 +289,7 @@ function renderInventoryList(){
  let box=$("inventoryList");
  box.innerHTML="";
  if(!data.inventory.length){
-   box.innerHTML='<span class="muted" style="font-size:12px">선물이 없어. 미션이나 출석으로 얻어봐!</span>';
+   box.innerHTML='<span class="muted" style="font-size:12px">선물이 없어. 미션이나 출석으로 얻어봐[span_19](start_span)[span_19](end_span)!</span>';
    return;
  }
  data.inventory.forEach(gId=>{
@@ -321,7 +312,7 @@ $("missionDone").onclick=()=>{
    data.affection+=5;
    persist();
    render();
-   alert("미션 완료! 보상으로 호감도와 선물이 지급됐어.");
+   alert("미션 완료! 보상으로 호감도와 선물이 지급됐어[span_20](start_span)[span_20](end_span).");
  }else{
    alert("아직 미션 조건을 달성하지 못했어! 조건을 확인해 봐.");
  }
@@ -405,12 +396,11 @@ $("diaryDate").onchange=()=>{let d=$("diaryDate").value;$("diaryText").value=dat
 $("saveDiary").onclick=()=>{let d=$("diaryDate").value\vert{}\vert{}todayISO();data.diaries[d]=$("diaryText").value;persist();renderDiary();alert("일기를 저장했어.");};
 $("saveMemo").onclick=()=>{let t=$("memoText").value.trim();if(!t)return;data.memos.unshift({text:t,date:todayISO()});$("memoText").value="";persist();renderDiary();};
 
-const fortunes=["작은 성취가 큰 기쁨으로 이어지는 날.","오늘은 좋아하는 음식을 먹어봐!","뜻밖의 행운이 찾아올 지도 몰라.","충분한 휴식이 최고의 보약이야."];
+const fortunes=["작은 성취가 큰 기쁨으로 이어지는 날.","오늘은 좋아하는 음식을 먹어봐!","뜻밖의 행운이 찾아올 지도 몰라[span_21](start_span)[span_21](end_span).","충분한 휴식이 최고의 보약이야."];
 const scenarios=["니노가 창밖을 보며 노래를 흥얼거리고 있어.","방 안에서 조용히 책을 읽다 눈이 마주쳤다.","간식 타임을 맞아 니노가 무언가를 기대하고 있어."];
 $("fortuneBtn").onclick=()=>{$("fortuneText").textContent=random(fortunes);};
 $("scenarioBtn").onclick=()=>{$("scenarioText").textContent=random(scenarios);$("line").textContent=$("scenarioText").textContent;};
 
-// 뽀모도로 타이머 로직
 let timerInt=null,seconds=25*60,mode="focus",running=false;
 function resetTimer(){clearInterval(timerInt);timerInt=null;running=false;mode="focus";seconds=(data.focusMinutes||25)*60;updateTimer();}
 function updateTimer(){
