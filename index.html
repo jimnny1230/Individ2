@@ -1,474 +1,103 @@
-<!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#ff8b9d"><title>NINO DESKTOP ♡</title>
-<style>
-:root{--pink:#ff7e9d;--coral:#ff9c79;--teal:#25c4cc;--cream:#fff8d9;--ink:#493b50;--mint:#e5fbf7;--line:#f6cbd5}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 15% 8%,#fff 0 2px,transparent 3px),linear-gradient(145deg,#fff1f3,#fff9dc 58%,#d9fbf5);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans KR",sans-serif;min-height:100vh;padding:18px 13px 34px}
-button,input,textarea,select{font:inherit}button{cursor:pointer}
-header{position:relative;top:auto;z-index:2;max-width:760px;margin:0 auto 15px;background:transparent;border:0;padding:5px 2px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-weight:1000;letter-spacing:2.5px;color:#df5b7c;font-size:12px}.small{font-size:12px;color:#8e7f91;line-height:1.5}
-header .small{letter-spacing:1px}
-header button{border:0;border-radius:14px;background:var(--teal);color:#064d55;font-weight:1000;padding:11px 14px;box-shadow:0 4px 0 #149fa7}
-main{max-width:760px;margin:auto;padding:0}
-.brandhead{text-align:center;padding:5px 0 12px}.brand-eyebrow{font-size:10px;letter-spacing:3px;font-weight:1000;color:#168e99}.brandhead h1{font-size:clamp(28px,7vw,42px);line-height:1.1;margin:7px 0;color:#f15e83;font-weight:1000;letter-spacing:-1px;text-shadow:2px 2px #fff,4px 4px #ffd0d9}.brandhead p{margin:0;color:#8e7f91;font-size:12px;font-weight:800;letter-spacing:1px}
-.tabs{display:flex;gap:7px;overflow:auto;padding:8px 2px 14px;scrollbar-width:thin}
-.tabs button{white-space:nowrap;border:2px solid #fff;background:#fffdf5;color:#76667c;border-radius:14px;padding:10px 12px;font-size:13px;font-weight:900;box-shadow:0 3px 0 #f4d2da}
-.tabs button.active{background:var(--pink);color:#fff;border-color:#fff;box-shadow:0 4px 0 #e65c83}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:13px}
-.card{background:#ffffffdf;border:2px solid #fff;border-radius:24px;padding:17px;box-shadow:0 6px 0 #c6eee7;min-width:0}
-.room-container{background:linear-gradient(180deg,#d6f8f5 0%,#fffdf5 70%);border:4px solid #fff;border-radius:28px;padding:16px;box-shadow:0 8px 0 #f8c3cf,0 14px 30px #e7aebd55;margin-bottom:14px;position:relative}
-.room-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.hero{display:grid;grid-template-columns:minmax(130px,.85fr) minmax(0,1.15fr);gap:13px;align-items:center}
-.pixel-avatar{width:100%;max-height:260px;min-height:160px;object-fit:contain;display:block;border-radius:18px;background:#fff;border:3px solid #bdf7ef;image-rendering:pixelated}
-.hero h1{font-size:clamp(21px,5vw,29px);line-height:1.16;margin:4px 0 8px;font-weight:1000;color:#f15e83;text-shadow:1px 1px #fff,3px 3px #ffd0d9}
-#today{font-size:12px;letter-spacing:1px;color:#168e99;font-weight:1000}
-.quote{background:var(--mint);border:2px solid #8de5dc;border-radius:20px;padding:11px;font-size:13px;line-height:1.6;font-weight:750;min-height:50px;position:relative}
-.quote:before{content:"NINO'S ROOM";display:block;font-size:9px;letter-spacing:2px;color:#168e99;margin-bottom:3px;font-weight:1000}
-.statrow{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0}
-.pill{background:#fff0e8;border:1px solid #f8d1c2;border-radius:99px;padding:6px 9px;font-size:11px;font-weight:900;color:#735366}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-button{border:0;border-radius:14px;background:var(--teal);color:#064d55;font-weight:1000;padding:11px 13px;box-shadow:0 4px 0 #149fa7}
-button.secondary{background:#ffe0a5;color:#74501c;box-shadow:0 4px 0 #eac17a}
-button.ghost{background:#fff0f3;color:#bd5470;border:1px solid #f4c5d1;box-shadow:0 3px 0 #f4d2da}
-button:active{transform:translateY(2px);box-shadow:none}
-.section-title{margin:0 0 12px;font-size:17px;font-weight:1000;color:#168e99}
-.muted{color:#8e7f91;font-size:13px;line-height:1.6}
-.hidden{display:none!important}
-.field{display:grid;gap:6px;margin:12px 0}
-.field label{font-size:12px;letter-spacing:.3px;font-weight:1000;color:#76667c}
-.field input,.field textarea,.field select{width:100%;padding:11px 12px;border:2px solid #f4c5d1;border-radius:13px;background:#fff;color:var(--ink);outline-color:var(--teal)}
-textarea{min-height:90px;resize:vertical}
-.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
-.photo{border:2px solid #fff;border-radius:17px;padding:8px;background:#fff9f5;min-width:0;box-shadow:0 4px 0 #f8d7df}
-.photo img{width:100%;height:125px;object-fit:cover;border-radius:11px;background:#bdf7ef}
-.photo p{font-size:12px;overflow-wrap:anywhere;line-height:1.5}.photo button{padding:8px;font-size:11px;margin-top:4px}
-.inventory-list{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.inventory-item{background:#fff;border:2px solid #f8d1c2;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:900;display:flex;align-items:center;gap:6px;box-shadow:0 3px 0 #f4d2da}
-.timer{font-size:clamp(40px,12vw,58px);font-weight:1000;text-align:center;margin:15px;color:#f15e83;text-shadow:2px 2px #ffd0d9}
-.notice{background:#fff8d9;border:2px solid #f4dfaa;border-radius:16px;padding:12px;font-size:12px;line-height:1.65;color:#745a43}
-.footer{text-align:center;color:#8e7f91;font-size:11px;padding:23px 8px;line-height:1.7}
-#diaryList,#memoList{font-size:13px;line-height:1.7;overflow-wrap:anywhere}
-@media(max-width:520px){body{padding:14px 10px 27px}header{padding:4px 2px 0}.hero{grid-template-columns:42% 1fr;padding:10px;gap:9px}.pixel-avatar{min-height:140px}.hero h1{font-size:21px}.quote{padding:10px;font-size:12px}.card{padding:14px}.tabs button{padding:9px 10px;font-size:12px}.grid{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<header><div><div class="logo">GOOD DAY WITH NINO ♡</div><div class="small">TAMAGOCHI DESKTOP COMPANION</div></div><button id="settingsTop">⚙ 설정</button></header>
-<main>
-<div class="brandhead"><div class="brand-eyebrow">NINO'S LITTLE ROOM</div><h1>NINO DESKTOP ♡</h1><p>다마고치처럼 아기자기한 니노와의 일상</p></div>
-<nav class="tabs" id="tabs">
-<button class="active" data-page="home">홈</button><button data-page="photos">사진 확인</button><button data-page="diary">일기·메모</button><button data-page="timer">뽀모도로 타이머</button><button data-page="fun">운세·상황극</button><button data-page="settings">설정</button>
-</nav>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#fff1f5"><title>니노의 작은 방</title><style>
+:root{--pink:#f7b8cd;--pink2:#ffe2eb;--mint:#bce9dc;--mint2:#e4f8f1;--ink:#4d4650;--muted:#8f8490;--line:#f0dce4;--shadow:0 8px 24px #b98da21b}*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#fff4f7,#f0fbf6);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit;border:0}.app{max-width:760px;margin:auto;min-height:100dvh;padding:16px 14px 28px}header{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 14px}.brand{font-size:21px;font-weight:900}.sub,.tiny{font-size:12px;color:var(--muted);margin-top:3px}.pill,.chip{background:white;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:13px}.tab{padding:11px 6px;border-radius:15px;background:#ffffff9c;border:1px solid var(--line);font-weight:750;font-size:13px}.tab.active{background:var(--pink2);border-color:#f1b5ca}.panel{display:none}.panel.active{display:block}.card{background:#fffdfbdb;border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:var(--shadow);margin-bottom:12px}.cardtitle{font-weight:850;font-size:15px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}.room{position:relative;overflow:hidden;border-radius:22px;border:2px solid #f1d7e1;background:#fff2e7;min-height:310px}.wall{position:absolute;inset:0 0 77px;background:linear-gradient(#fff1f2 0 70%,#fce8ec 70%)}.floor{position:absolute;left:0;right:0;bottom:0;height:80px;background:repeating-linear-gradient(90deg,#e9c9b7 0 48px,#e3bea9 49px 51px)}.window{position:absolute;left:8%;top:10%;width:26%;height:105px;border:7px solid #fffdf7;border-radius:10px;background:linear-gradient(#c8edf0 0 55%,#b9e3d4 56%)}.window:before{content:"";position:absolute;left:48%;top:0;bottom:0;width:5px;background:#fffdf7}.window:after{content:"";position:absolute;left:0;right:0;top:47%;height:5px;background:#fffdf7}.shelf{position:absolute;right:8%;top:13%;width:26%;height:12px;background:#c99581;border-radius:4px;box-shadow:0 34px #c99581,0 68px #c99581}.book{position:absolute;right:10%;top:6%;height:29px;width:9px;background:#a8d9c9;box-shadow:11px 3px #f4b6cb,22px 0 #f0d99b}.bed{position:absolute;left:5%;bottom:62px;width:40%;height:62px;background:#eeb5c9;border-radius:10px 10px 3px 3px;border-bottom:8px solid #d99db5}.bed:before{content:"";position:absolute;left:8px;top:-12px;width:45px;height:28px;border-radius:8px;background:#fff9f2;box-shadow:51px 0 #fff9f2}.rug{position:absolute;left:35%;bottom:4px;width:40%;height:45px;border-radius:50%;background:#d8f0e5;border:3px dashed #a9d8c8}.plant{position:absolute;right:11%;bottom:80px;width:32px;height:39px;background:#d7a18d;clip-path:polygon(15% 35%,85% 35%,75% 100%,25% 100%)}.plant:before{content:"";position:absolute;width:36px;height:42px;left:-2px;top:-29px;background:#a9d9bd;clip-path:polygon(50% 100%,4% 45%,28% 0,48% 32%,75% 3%,100% 49%)}.speech{position:absolute;left:50%;top:12px;transform:translateX(-50%);max-width:86%;background:#fffdfb;border:1px solid #f0cdd9;border-radius:16px;padding:9px 12px;font-size:12px;text-align:center;z-index:3;box-shadow:var(--shadow)}.character-wrap{position:absolute;left:49%;bottom:32px;transform:translateX(-50%);width:110px;height:160px;display:flex;align-items:flex-end;justify-content:center}.character{width:100px;height:145px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(2px 4px 0 #d3a7b8)}.roomlabel{position:absolute;bottom:10px;right:12px;font-size:11px;color:#8b6c75;font-weight:800}.row{display:flex;gap:8px;align-items:center}.between{justify-content:space-between}.btn{background:var(--pink2);border:1px solid #f1c2d2;padding:10px 13px;border-radius:13px;font-size:12px;font-weight:800}.btn.mint{background:var(--mint2);border-color:#c4e8dc}.btn.ghost{background:#fff;border-color:var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{padding:11px;border-radius:15px;background:#fff7fa;border:1px solid #f5e2e9}.stat b{display:block;font-size:17px}.stat span{font-size:11px;color:var(--muted)}.progress{height:8px;background:#f5e8ed;border-radius:99px;overflow:hidden;margin-top:7px}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f3a9c3,#a9dfcf);border-radius:99px}.missiontext{font-size:14px;font-weight:800;line-height:1.5}.missiondesc,.notice{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}.timerbox{text-align:center;padding:10px 0 3px}.ring{width:206px;height:206px;border-radius:50%;margin:0 auto 12px;background:conic-gradient(#f2a9c2 0deg,#b8e6d7 0deg,#f7e9ee 0deg);display:grid;place-items:center;position:relative}.ring:before{content:"";position:absolute;inset:11px;background:#fffdfb;border-radius:50%}.timerinside{position:relative;z-index:1}.timer{font-size:39px;font-weight:900;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}.timerlabel{font-size:12px;color:var(--muted);margin-top:3px}.timercontrols{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:12px;font-weight:800}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fffdfb;color:var(--ink)}.field textarea{min-height:70px;resize:vertical}.preview{width:94px;height:94px;object-fit:contain;image-rendering:pixelated;border:1px dashed #e7c9d5;border-radius:16px;background:#fff8fb}.inventory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.item{background:#fff9fb;border:1px solid var(--line);border-radius:14px;padding:10px;font-size:12px;display:flex;justify-content:space-between;gap:8px;align-items:center}.count{font-weight:900;background:#e4f8f1;padding:4px 7px;border-radius:8px;white-space:nowrap}@media(min-width:600px){.room{min-height:360px}.wall{bottom:88px}.floor{height:90px}.bed{bottom:72px}.plant{bottom:90px}.character-wrap{bottom:39px}.stats{grid-template-columns:repeat(4,1fr)}.inventory{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-<section id="home" class="page">
-<div class="room-container">
-<div class="room-header"><div class="small" id="today"></div><span class="pill" id="affection">♡ 호감도 0</span></div>
-<div class="hero">
-<img id="heroPhoto" class="pixel-avatar" alt="니노 픽셀 캐릭터" src="">
-<div>
-<h1 id="greeting">니노의 방</h1>
-<div class="quote" id="line">오늘도 좋은 하루야. 무엇을 할까?</div>
-<div class="statrow"><span class="pill" id="streak">★ 연속 출석 0일</span><span class="pill" id="invCount">보유 선물 0개</span></div>
-<div class="actions">
-<button id="talk">대화하기</button>
-<button id="pat" class="secondary">쓰다듬기</button>
-<button id="checkin" class="secondary">오늘 출석</button>
-<button id="openGiftModal" class="ghost">선물 하기</button>
-</div>
-</div>
-</div>
-</div>
-<div class="grid">
-<div class="card"><h2 class="section-title">오늘의 기분</h2><p id="moodText">하루에 한 번 결정되는 기분이야.</p><button class="ghost" id="checkMood">오늘의 기분 확인</button></div>
-<div class="card"><h2 class="section-title">오늘의 미션</h2><p id="missionText">미션을 불러오는 중...</p><div class="actions" style="margin-top:8px"><button class="ghost" id="missionDone">미션 완료하기</button></div></div>
-<div class="card"><h2 class="section-title">보유한 선물함</h2><div class="inventory-list" id="inventoryList"><span class="muted" style="font-size:12px">선물이 없어. 미션이나 출석으로 얻어봐!</span></div></div>
-</div>
-</section>
+/* ORIGINAL-INSPIRED: vivid candy pastels, pixel trims, sparkle and game-window styling */
+:root{--pink:#ff6f9e;--pink2:#ffe0ed;--mint:#bff8eb;--mint2:#d9fff5;--ink:#49354f;--muted:#907d9b;--line:#f7bfd4;--shadow:0 5px 0 #f6c0d3,0 9px 0 #bcefe3,0 15px 28px #d66b9b28}
+body{background:radial-gradient(circle at 7% 10%,#fff 0 2px,transparent 3px),radial-gradient(circle at 89% 18%,#ffe17c 0 2px,transparent 3px),radial-gradient(circle at 78% 80%,#fff 0 2px,transparent 3px),linear-gradient(145deg,#ffd7e7 0%,#fff2b9 42%,#bff8ee 100%);background-size:31px 31px,47px 47px,39px 39px,auto;background-attachment:fixed}
+.app{max-width:920px;padding:18px 14px 35px}
+header{padding:13px 15px;margin:0 0 15px;border:3px solid #fff;border-radius:19px;background:linear-gradient(100deg,#fff4faeF,#d8fff3f0);box-shadow:0 5px 0 #f7a9c7,0 9px 0 #9fe8db,0 12px 25px #d66b9b25}
+.brand{font-size:clamp(20px,4vw,29px);font-weight:1000;letter-spacing:.2px;color:#f04d88;text-shadow:2px 2px #fff,4px 4px #ffc1d8}
+.sub,.tiny{color:#8c6c94}
+.pill,.chip{background:linear-gradient(135deg,#fff,#fff2f8);border:2px solid white;box-shadow:0 3px 0 #f6c7da;border-radius:12px;color:#c4497b;font-weight:850}
+.tabs{gap:9px;margin-bottom:18px}
+.tab{border:2px solid white;border-radius:13px;background:linear-gradient(180deg,#fffdf8,#ffe7f1);box-shadow:0 4px 0 #f0b2ca,0 7px 0 #c3eee4;font-weight:950;color:#87658d;letter-spacing:.2px;transition:transform .12s}
+.tab:nth-child(2){background:linear-gradient(180deg,#f6ffff,#d7fff3);box-shadow:0 4px 0 #8cdbd1,0 7px 0 #f6c2d8}
+.tab:nth-child(3){background:linear-gradient(180deg,#fff8d8,#ffe3a1);box-shadow:0 4px 0 #eac16f,0 7px 0 #f6c2d8}
+.tab.active{background:linear-gradient(135deg,#ff5b99,#ff9cbd);border-color:#fff;color:white;box-shadow:0 4px 0 #d83d79,0 7px 0 #b5eadc;text-shadow:1px 1px #d84d82}
+.card{background:linear-gradient(145deg,#ffffffef,#fff5faed 70%,#f0fffbef);border:3px solid white;border-radius:18px;box-shadow:var(--shadow);position:relative}
+.card:after{content:"✦";position:absolute;right:10px;top:7px;font-size:13px;color:#ffc45e;text-shadow:1px 1px white;pointer-events:none}
+.cardtitle{color:#138e9d;font-size:15px;font-weight:1000;text-shadow:1px 1px white}
+.room{border:4px solid white;border-radius:18px;background:linear-gradient(180deg,#a9f4ee 0%,#f9d9ef 53%,#ffdfa6 100%);box-shadow:0 5px 0 #f46f9d,0 9px 0 #9fe6d8,0 15px 28px #cf5d8d30;min-height:350px;image-rendering:pixelated}
+.wall{inset:0 0 77px;background:linear-gradient(180deg,#8fe5f2 0%,#c9f8f1 46%,#ffdae9 47%,#ffcfe0 100%)}
+.wall:before{content:"✦  ·  ✧  ·  ★  ·  ✧";position:absolute;left:4%;top:4%;color:#fff7a6;font-size:16px;letter-spacing:7px;text-shadow:1px 2px #ee9ec3;white-space:nowrap}
+.wall:after{content:"♡";position:absolute;right:9%;top:35%;font-size:27px;color:#ff6fa0;text-shadow:2px 2px white}
+.window{border:7px solid #fff7e4;border-radius:5px;background:linear-gradient(180deg,#8bdcf2 0%,#d5fbf2 70%,#8ed9c4 71%);box-shadow:0 0 0 3px #62cbd0,4px 5px 0 #f7a5c7}
+.window:before,.window:after{background:#fff7e4}
+.shelf{background:#d18c75;border-radius:2px;box-shadow:0 34px #d18c75,0 68px #d18c75,0 4px 0 #f7c3d3}
+.book{box-shadow:11px 3px #ff7ba4,22px 0 #ffe27e,33px 3px #7ce1d3,44px 0 #bda4ff}
+.bed{background:repeating-linear-gradient(135deg,#ff94bd 0 12px,#ffc7df 12px 24px);border-radius:5px;border:3px solid #fff6f1;border-bottom:8px solid #dc6f9d;box-shadow:3px 4px 0 #bd7baf}
+.bed:before{background:#fff9f4;box-shadow:51px 0 #d8fff4;border:2px solid #ffb5d0}
+.floor{background:repeating-linear-gradient(90deg,#ffe2ad 0 35px,#ffc7d7 36px 39px,#d6f8ed 40px 74px,#b4e9df 75px 78px);border-top:4px solid #fff6d8}
+.rug{background:repeating-linear-gradient(90deg,#c5fff1 0 8px,#d9d0ff 8px 16px,#ffc9de 16px 24px);border:3px dashed #fff;border-radius:50%;box-shadow:0 0 0 3px #f5a6c6}
+.plant{background:#e58e83;border:2px solid #fff2cc;border-radius:2px}
+.plant:before{background:#45d5a0;filter:drop-shadow(5px 1px #a5ec6c)}
+.speech{background:linear-gradient(135deg,#fff,#fff0f7);border:2px solid #fff;box-shadow:0 3px 0 #f4a8ca,0 5px 0 #9fe9dc;font-weight:850;color:#a24e82;border-radius:12px}
+.character-wrap{width:140px;height:176px;filter:drop-shadow(0 4px 0 #ff9ec1)}
+.character{width:128px;height:168px;image-rendering:pixelated;filter:drop-shadow(3px 3px 0 #fff) drop-shadow(4px 5px 0 #d35a90)}
+.roomlabel{background:#fff8d8;border:2px solid white;border-radius:6px;padding:5px 8px;color:#d84e86;box-shadow:0 3px 0 #e9b6d1}
+.btn{background:linear-gradient(135deg,#ff639c,#ff8ab3);border:2px solid white;color:white;border-radius:10px;box-shadow:0 4px 0 #d9437d,0 6px 0 #b9eadd;text-shadow:1px 1px #dc4a81;font-weight:950}
+.btn.mint{background:linear-gradient(135deg,#3ed8c7,#9af3db);color:#236d70;box-shadow:0 4px 0 #30b6aa,0 6px 0 #f5bfd5;text-shadow:1px 1px white}
+.btn.ghost{background:linear-gradient(135deg,#fff,#fff3cf);color:#a86d57;box-shadow:0 4px 0 #e6c47d,0 6px 0 #f4c3d8;text-shadow:none}
+.btn:disabled{opacity:.45;filter:grayscale(.25)}
+.stat{background:linear-gradient(145deg,#fff3fa,#e2fff7);border:2px solid white;border-radius:11px;box-shadow:0 3px 0 #f3c3d7}
+.stat b{color:#e94d89;text-shadow:1px 1px white;font-size:20px}
+.progress{height:12px;background:#ffe1ec;border:2px solid white;border-radius:5px;box-shadow:inset 0 1px 3px #d48aa8}
+.progress i{background:repeating-linear-gradient(90deg,#ff5e9b 0 9px,#ff9bc0 9px 13px,#35d6c4 13px 21px);border-radius:2px}
+.ring{border:4px solid white;box-shadow:0 0 0 4px #ff9bc5,0 0 0 8px #a4eee0,0 8px 0 #e89bc0;background:conic-gradient(#ff5b9d 0deg,#3ed4c4 120deg,#ffca62 240deg,#ff5b9d 360deg)}
+.ring:before{background:radial-gradient(circle at 30% 25%,white,#fff1f7 75%);border:3px solid white}
+.timer{color:#e94d89;text-shadow:2px 2px #ffd1e1;font-size:42px}
+.field input,.field select,.field textarea{border:2px solid #f7bfd4;border-radius:8px;background:#fffdf8;box-shadow:inset 0 2px 0 #fff}
+.preview{border:3px dashed #ff94bd;border-radius:10px;background:linear-gradient(135deg,#fff3fa,#d9fff5)}
+.inventory .item{border:2px solid white;border-radius:9px;background:linear-gradient(135deg,#fff1f7,#e3fff7);box-shadow:0 3px 0 #efc0d4;font-weight:800}
+.count{background:#bff8eb;color:#287f80;border-radius:5px;border:1px solid white}
+.notice{background:repeating-linear-gradient(135deg,#fff8db,#fff8db 12px,#fff2d0 12px,#fff2d0 24px);border:2px solid white;border-radius:9px;padding:10px;color:#95634d;box-shadow:0 3px 0 #efc0d4}
+@media(min-width:600px){.room{min-height:390px}.wall{bottom:88px}.floor{height:90px}.bed{bottom:72px}.plant{bottom:90px}.character-wrap{bottom:39px}.character{width:140px;height:184px}}
+@media(max-width:520px){.app{padding:12px 10px 28px}header{padding:10px;border-radius:14px}.brand{font-size:21px}.card{padding:13px}.room{min-height:320px}.character-wrap{width:118px;height:154px}.character{width:112px;height:147px}.speech{font-size:11px}}
 
-<section id="photos" class="page hidden">
-<div class="card">
-<h2 class="section-title">업로드한 사진 확인</h2>
-<p class="muted">업로드한 추억의 사진들을 모아보고 관리할 수 있어[span_8](start_span)[span_8](end_span).</p>
-<div class="photo-grid" id="photoGrid" style="margin-top:14px"></div>
-</div>
-</section>
 
-<section id="diary" class="page hidden">
-<div class="grid">
-<div class="card"><h2 class="section-title">오늘의 일기</h2><div class="field"><label>날짜</label><input type="date" id="diaryDate"></div><div class="field"><label>일기 내용</label><textarea id="diaryText" placeholder="오늘 니노와 함께한 소중한 기록을 남겨봐."></textarea></div><button id="saveDiary">일기 저장</button><div id="diaryList" style="margin-top:12px"></div></div>
-<div class="card"><h2 class="section-title">메모장</h2><div class="field"><label>메모 내용</label><textarea id="memoText" placeholder="덕질 스케줄, 할 일 등"></textarea></div><button id="saveMemo">메모 저장</button><div id="memoList" style="margin-top:12px"></div></div>
-</div>
-</section>
+/* desktop layout: a lively virtual-pet window rather than a stack of presentation cards */
+@media(min-width:760px){
+  #panel-room.active{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.15fr) minmax(230px,.85fr);gap:14px;align-items:stretch}
+  #panel-room>.card{margin:0;min-width:0}
+  #panel-room>.card:first-child{grid-column:1 / span 2;grid-row:1 / span 2}
+  #panel-room>.card:nth-child(2){grid-column:3;grid-row:1}
+  #panel-room>.card:nth-child(3){grid-column:3;grid-row:2}
+  #panel-room>.card:nth-child(4){grid-column:1 / span 3;grid-row:3}
+  #panel-room>.card:first-child .room{min-height:500px}
+  #panel-room>.card:first-child .wall{bottom:105px}
+  #panel-room>.card:first-child .floor{height:108px}
+  #panel-room>.card:first-child .bed{bottom:88px;height:78px}
+  #panel-room>.card:first-child .character-wrap{width:170px;height:220px;bottom:44px}
+  #panel-room>.card:first-child .character{width:160px;height:210px}
+}
+@media(max-width:759px){#panel-room.active{display:block}#panel-room>.card{margin-bottom:12px}}
+/* extra bedroom details: fairy lights, framed art, plush cat and candy-colored window */
+.room{isolation:isolate}
+.room:before{content:"✦  ·  ✧  ·  ♡  ·  ✦  ·  ✧  ·  ♡  ·  ✦";position:absolute;z-index:2;left:4%;right:4%;top:4px;text-align:center;white-space:nowrap;overflow:hidden;color:#fff4a4;font-size:14px;letter-spacing:3px;text-shadow:1px 1px #ed8fb8;pointer-events:none}
+.room:after{content:"✧";position:absolute;z-index:2;right:6%;bottom:23%;font-size:25px;color:#fff6a9;text-shadow:2px 2px #f47ba9;pointer-events:none}
+.window{background:linear-gradient(180deg,#67d6f5 0%,#c5f8f2 62%,#88d8bf 63%,#b7f0d7 100%)}
+.window:after{box-shadow:0 0 0 1px #fff}
+.shelf{height:10px;box-shadow:0 34px #d18c75,0 68px #d18c75,0 4px 0 #f7c3d3}
+.shelf:before{content:"♡";position:absolute;left:-75px;top:-42px;width:42px;height:48px;display:grid;place-items:center;background:linear-gradient(135deg,#ff9dc1,#ffcee0);border:4px solid #fff6df;color:#fff;font-size:24px;box-shadow:0 3px 0 #e88caf,0 0 0 2px #71d9d1}
+.shelf:after{content:"✿";position:absolute;left:-24px;top:-22px;color:#fff5a8;font-size:22px;text-shadow:1px 1px #ed84ae}
+.bed:after{content:"✦  ♡  ✦";position:absolute;right:12px;bottom:8px;color:#fff7e4;font-size:14px;letter-spacing:4px;text-shadow:1px 1px #e877a3}
+.rug:after{content:"🐾";position:absolute;right:7%;top:4px;font-size:17px;filter:drop-shadow(1px 1px white)}
+.plant:after{content:"✿";position:absolute;left:5px;top:-33px;font-size:17px;color:#fff3a1;text-shadow:1px 1px #44b98f}
 
-<section id="timer" class="page hidden">
-<div class="card">
-<h2 class="section-title">뽀모도로 집중 타이머</h2>
-<p class="muted">집중 타이머를 채우면 '오늘의 미션'을 달성하고 호감도와 선물을 얻을 수 있어[span_9](start_span)[span_9](end_span)!</p>
-<div class="timer" id="timerDisplay">25:00</div>
-<p id="timerMode" style="text-align:center;font-weight:bold;color:#168e99">집중 시간</p>
-<div class="actions" style="justify-content:center"><button id="timerStart">시작</button><button class="secondary" id="timerPause">일시정지</button><button class="ghost" id="timerReset">초기화</button></div>
-<p id="studyTotal" style="text-align:center;margin-top:12px">누적 집중 시간: 0분</p>
-<p id="timerMessage" style="text-align:center;color:#f15e83;font-weight:bold;font-size:13px;margin-top:6px"></p>
-</div>
-</section>
 
-<section id="fun" class="page hidden">
-<div class="grid">
-<div class="card"><h2 class="section-title">오늘의 니노 포춘</h2><p id="fortuneText">버튼을 눌러 오늘의 운세를 확인해봐.</p><button id="fortuneBtn" style="margin-top:10px">운세 뽑기</button></div>
-<div class="card"><h2 class="section-title">랜덤 상황극</h2><p id="scenarioText">니노가 지금 어떤 상황일까?</p><button id="scenarioBtn" style="margin-top:10px">상황 뽑기</button></div>
-</div>
-</section>
+@media(min-width:760px){#panel-room>.card:nth-child(2) .stats{grid-template-columns:repeat(2,minmax(0,1fr))}#panel-room>.card:nth-child(2) .stat{min-width:0}#panel-room>.card:nth-child(2) .stat span{font-size:11px;white-space:normal;word-break:keep-all}}
+.plant{clip-path:none;border-radius:3px 3px 7px 7px;background:linear-gradient(90deg,#e98180,#ffbd8e);box-shadow:inset 0 0 0 2px #fff1d0}
+.plant:before{clip-path:none;width:34px;height:38px;left:-2px;top:-29px;background:linear-gradient(135deg,#4bd6a1 0 30%,#8be36b 31% 55%,#2bbd92 56%);border-radius:50% 0 50% 0;box-shadow:8px 6px 0 -4px #8be36b,-7px 10px 0 -4px #39c58d}
 
-<section id="settings" class="page hidden">
-<div class="card">
-<h2 class="section-title">설정 및 캐릭터 꾸미기</h2>
-<div class="notice">데이터는 기기 내 브라우저에 안전하게 저장됩니다. 중요한 데이터는 백업해 두세요.</div>
-<div class="field"><label>사진 업로드 (여러 장 가능)</label><input type="file" id="photoFiles" accept="image/*" multiple></div>
-<div class="field"><label>캐릭터 이름</label><input id="characterName" value="니노"></div>
-<div class="field"><label>인사말 / 메인 문구[span_10](start_span)[span_10](end_span)</label><input id="customGreeting" value="니노의 방에 온 걸 환영해!"></div>
-<div class="field"><label>대사 목록 (한 줄에 하나씩)</label><textarea id="dialogueInput"></textarea></div>
-<div class="field"><label>집중 시간 (분)[span_11](start_span)[span_11](end_span)</label><input id="focusMinutes" type="number" min="1" max="180" value="25"></div>
-<div class="field"><label>휴식 시간 (분)[span_12](start_span)[span_12](end_span)</label><input id="breakMinutes" type="number" min="1" max="60" value="5"></div>
-<div class="actions" style="margin-top:10px"><button id="saveSettings">설정 저장</button><button class="secondary" id="exportData">백업 내보내기</button><label class="ghost" style="border-radius:14px;padding:11px 14px;font-weight:700;cursor:pointer">백업 복원 <input type="file" id="importData" accept="application/json" hidden></label></div>
-</div>
-<div class="card" style="margin-top:14px"><h2 class="section-title">데이터 초기화</h2><button class="ghost" id="resetData">전체 기록 초기화</button></div>
-</section>
-
-<div class="footer">NINO DESKTOP · 다마고치 룸 에디션</div>
-</main>
-
+</style></head><body><div class="app"><header><div><div class="brand">♡ NINO'S LITTLE ROOM ♡</div><div class="sub" id="dateLabel">✦ 반짝반짝 니노와 함께하는 하루 ✦</div></div><div class="pill">♡ <span id="affectionTop">0</span></div></header><nav class="tabs"><button class="tab active" data-tab="room">니노의 방</button><button class="tab" data-tab="focus">집중 시간</button><button class="tab" data-tab="settings">설정</button></nav>
+<section class="panel active" id="panel-room"><div class="card"><div class="cardtitle"><span>MY LITTLE ROOM</span><span class="tiny" id="dayMood">오늘의 기분</span></div><div class="room"><div class="wall"><div class="window"></div><div class="shelf"><div class="book"></div></div><div class="bed"></div><div class="plant"></div><div class="rug"></div></div><div class="floor"></div><div class="speech" id="speech">오늘은 어떤 하루였어?</div><div class="character-wrap"><img class="character" id="roomCharacter" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAKgCAYAAADtZMUUAAAABmJLR0QA/wD/AP+gvaeTAAAUzElEQVR4nO3dQail513H8femB6FDwCmBmUgJGZSYhcm0meJGGGgjk1pNaHAxpQ66MDVKxBS7CFEX4qJtqGBpaguJiQtl0MyqZZqUEqyFSDclt0k6LqalOjGIvYHgREIKgr2uks7cuTO59zzvOf/3eX+fz6b0pu+8T+ece+83z/M/52wMQJmtU8e2q9fQ4vDpzY3qNQDLua56AQDA+gkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACDQonoB9G3r1LHt6jW0OHx6c6N6DdTx/CWZHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQD5Lmia9f5469Ozw6U0/w1maHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQIvqBdC34698oPT+z930fNP11es/f/cPm65/9cWLI62kRvXff+/Pn2HYLL4/PbMDAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBoo3oBtNk6dWy75frWzzM///RvNV0//PXrbdcXu/XrT1cvoWueP23Pn+duen6klfTp8OlNv8Ma2AEAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACLSoXgBtjr/ygdoFdP557BTz/GlS/f3/3E3Pl96fNnYAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAItqhfQu61Tx7Yr73/8lbbrz9/9oabrb/3a0233/8hvNF3f6tavt62fNq1//70/f9q///656Xqy2QEAgEACAAACCQAACCQA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" alt="니노 픽셀 아트 캐릭터"></div><div class="roomlabel">NINO'S ROOM</div></div><div class="row between" style="margin-top:12px"><div><b id="displayName">니노</b><div class="tiny" id="greeting">네가 와서 기뻐.</div></div><button class="btn" id="petBtn">말 걸기 ♡</button></div></div>
+<div class="card"><div class="cardtitle">오늘의 기록 <span class="tiny" id="attendanceLabel">출석 전</span></div><div class="stats"><div class="stat"><b id="affection">0</b><span>호감도</span></div><div class="stat"><b id="days">0일</b><span>함께한 날</span></div><div class="stat"><b id="focusTotal">0분</b><span>집중 누적</span></div><div class="stat"><b id="giftTotal">0개</b><span>보유 선물</span></div></div><div style="margin-top:12px"><button class="btn mint" id="attendanceBtn" style="width:100%">오늘 출석하기</button></div></div>
+<div class="card"><div class="cardtitle">오늘의 미션 <span class="tiny">하루 1개</span></div><div class="missiontext" id="missionTitle"></div><div class="missiondesc" id="missionDesc"></div><div class="progress"><i id="missionProgress"></i></div><div class="row between" style="margin-top:10px"><span class="tiny" id="missionStatus">진행 전</span><button class="btn" id="missionComplete">미션 완료 받기</button></div><div class="notice">미션 조건을 충족해야 보상을 받을 수 있어. 집중 미션은 타이머 기록을 자동으로 확인해.</div></div>
+<div class="card"><div class="cardtitle">선물하기 <span class="tiny">선물은 사용하면 사라져</span></div><div class="field"><label for="giftSelect">니노에게 줄 선물</label><select id="giftSelect"></select></div><div class="row between"><span class="tiny" id="giftCountText">보유한 선물이 없어.</span><button class="btn" id="giveGift">선물 주기 ♡</button></div><div class="notice">출석, 미션 보상, 호감도 달성으로 선물을 모을 수 있어.</div></div></section>
+<section class="panel" id="panel-focus"><div class="card"><div class="cardtitle">뽀모도로 집중 타이머 <span class="tiny">집중 기록은 미션에 반영돼</span></div><div class="timerbox"><div class="ring" id="ring"><div class="timerinside"><div class="timer" id="timer">25:00</div><div class="timerlabel" id="timerLabel">집중할 시간</div></div></div><div class="row" style="justify-content:center"><span class="chip">집중 <b id="focusDurationLabel">25</b>분</span><span class="chip">휴식 <b id="breakDurationLabel">5</b>분</span></div><div class="timercontrols"><button class="btn" id="startTimer">시작</button><button class="btn mint" id="pauseTimer">일시 정지</button><button class="btn ghost" id="resetTimer">초기화</button></div></div><div class="notice">타이머가 끝나면 집중 시간이 기록돼. 페이지를 닫으면 진행 중 세션은 기록되지 않아.</div></div><div class="card"><div class="cardtitle">오늘의 집중 기록</div><div class="stats"><div class="stat"><b id="todayFocus">0분</b><span>오늘 집중</span></div><div class="stat"><b id="sessionCount">0회</b><span>완료한 세션</span></div></div></div></section>
+<section class="panel" id="panel-settings"><div class="card"><div class="cardtitle">니노 설정</div><div class="field"><label for="nameInput">표시 이름</label><input id="nameInput" maxlength="20" placeholder="니노"></div><div class="field"><label for="greetingInput">방에서 보여 줄 한마디</label><input id="greetingInput" maxlength="80" placeholder="네가 와서 기뻐."></div><div class="field"><label for="dialogueInput">말 걸었을 때의 대사</label><textarea id="dialogueInput" maxlength="240"></textarea></div><div class="row"><div style="flex:1" class="field"><label for="focusDuration">집중 시간(분)</label><input id="focusDuration" type="number" min="1" max="120" value="25"></div><div style="flex:1" class="field"><label for="breakDuration">휴식 시간(분)</label><input id="breakDuration" type="number" min="1" max="60" value="5"></div></div><div class="row"><button class="btn" id="saveSettings">설정 저장</button><button class="btn ghost" id="resetSettings">기본값으로</button></div></div>
+<div class="card"><div class="cardtitle">캐릭터 이미지 <span class="tiny">미리보기 전용</span></div><div class="row" style="align-items:flex-start"><img class="preview" id="preview" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAKgCAYAAADtZMUUAAAABmJLR0QA/wD/AP+gvaeTAAAUzElEQVR4nO3dQail513H8femB6FDwCmBmUgJGZSYhcm0meJGGGgjk1pNaHAxpQ66MDVKxBS7CFEX4qJtqGBpaguJiQtl0MyqZZqUEqyFSDclt0k6LqalOjGIvYHgREIKgr2uks7cuTO59zzvOf/3eX+fz6b0pu+8T+ece+83z/M/52wMQJmtU8e2q9fQ4vDpzY3qNQDLua56AQDA+gkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACDQonoB9G3r1LHt6jW0OHx6c6N6DdTx/CWZHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQD5Lmia9f5469Ozw6U0/w1maHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQIvqBdC34698oPT+z930fNP11es/f/cPm65/9cWLI62kRvXff+/Pn2HYLL4/PbMDAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBoo3oBtNk6dWy75frWzzM///RvNV0//PXrbdcXu/XrT1cvoWueP23Pn+duen6klfTp8OlNv8Ma2AEAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACLSoXgBtjr/ygdoFdP557BTz/GlS/f3/3E3Pl96fNnYAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAItqhfQu61Tx7Yr73/8lbbrz9/9oabrb/3a0233/8hvNF3f6tavt62fNq1//70/f9q///656Xqy2QEAgEACAAACCQAACCQA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" alt="선택한 이미지 미리보기"><div style="flex:1"><div class="tiny" style="line-height:1.6">니노 사진을 업로드하면 방 캐릭터와 미리보기에 적용돼. 사진 수집이나 해금 기능은 없어.</div><div class="field"><label for="photoInput">사진 업로드</label><input type="file" id="photoInput" accept="image/*"></div><button class="btn ghost" id="removePhoto">업로드 이미지 지우기</button></div></div></div>
+<div class="card"><div class="cardtitle">데이터 관리</div><div class="row" style="flex-wrap:wrap"><button class="btn mint" id="exportData">백업 파일 저장</button><label class="btn ghost" for="importFile">백업 불러오기</label><input id="importFile" type="file" accept="application/json" hidden><button class="btn ghost" id="resetAll">전체 초기화</button></div><div class="notice">데이터는 이 브라우저에 저장돼. 기기를 바꾸거나 브라우저 데이터를 지우기 전에 백업해 둬.</div></div></section></div>
 <script>
-const BUNDLED_NINO = "nino_default.png";
-const $=id=>document.getElementById(id);
-const GIFT_TYPES = [
-  {id:"flower", name:"알록달록 꽃다발", msg:"예쁜 꽃이네! 기분이 상쾌해져."},
-  {id:"snack", name:"달콤한 간식", msg:"간식이다! 맛있게 잘 먹을게."},
-  {id:"book", name:"재미있는 책", msg:"읽고 싶었던 책이야. 고마워!"},
-  {id:"star", name:"반짝이는 별조각", msg:"빛나는 보석 같아. 예쁘다!"}
-];
-const MISSIONS = [
-  {id:"focus25", text:"뽀모도로 타이머 25분 이상 집중하기", check:d=>d.currentSessionMinutes>=25},
-  {id:"talk3", text:"니노와 대화하기 3회 이상 나누기", check:d=>d.todayTalkCount>=3},
-  {id:"diary", text:"오늘의 일기 작성하기", check:d=>!!d.diaries[todayISO()]}
-];
-
-const defaults={
- name:"니노", greeting:"니노의 방에 온 걸 환영해!",
- dialogues:["오늘도 방에서 기다리고 있었어.","모니터 너머로 네가 보여.","오늘 하루도 힘내자!","휴식도 가끔은 필요해."],
- photos:[], affection:0, checkins:[], diaries:{}, memos:[], inventory:[],
- focusMinutes:25, breakMinutes:5, studyMinutes:0,
- lastMoodDate:"", lastMood:"아직 확인 안 함",
- missionDate:"", missionId:0, missionDone:false, currentSessionMinutes:0, todayTalkCount:0, todayDate:""
-};
-
-let data; try{data=Object.assign({},defaults,JSON.parse(localStorage.getItem("ninoTamagochiData")||"{}"));}catch(e){data={...defaults};}
-function persist(){try{localStorage.setItem("ninoTamagochiData",JSON.stringify(data));}catch(e){alert("저장 공간이 부족합니다.");}}
-function todayISO(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
-function dateLabel(s){if(!s)return "";return s.replaceAll("-",". ");}
-
-// 일일 초기화 체크
-function checkDailyReset(){
- let t=todayISO();
- if(data.todayDate!==t){
-   data.todayDate=t;
-   data.todayTalkCount=0;
-   data.currentSessionMinutes=0;
-   data.missionId=Math.floor(Math.random()*MISSIONS.length);
-   data.missionDate=t;
-   data.missionDone=false;
-   let moods=["기분 최고 😆","조금 나른함 🥱","집중 모드 🔥","상쾌함 ✨","몽글몽글 💭"];
-   data.lastMood=moods[Math.floor(Math.random()*moods.length)];
-   persist();
- }
-}
-
-function switchPage(page){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("hidden",p.id!==page));
- document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(page==="photos")renderPhotos();
- if(page==="diary")renderDiary();
- if(page==="settings")loadSettings();
-}
-document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>switchPage(b.dataset.page)));
-$("settingsTop").onclick=()=>switchPage("settings");
-
-function chosenPhoto(){return data.photos[0]||null;}
-
-function render(){
- checkDailyReset();
- const today=todayISO();
- $("today").textContent=dateLabel(today);
- $("greeting").textContent=data.greeting||"니노의 방";
- $("affection").textContent=`♡ 호감도 ${data.affection||0}`;
- 
- let checks=[...new Set(data.checkins||[])].sort();let streak=0,d=new Date();
- while(checks.includes(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`)){streak++;d.setDate(d.getDate()-1);}
- $("streak").textContent=`★ 연속 출석 ${streak}일`;
- $("invCount").textContent=`보유 선물 ${data.inventory.length}개`;
-
- const p=chosenPhoto();
- $("heroPhoto").src=p?p.src:BUNDLED_NINO;
-
- $("moodText").textContent=data.lastMood;
- 
- let currentMission=MISSIONS[data.missionId]||MISSIONS[0];
- $("missionText").textContent=currentMission.text + (data.missionDone?" (완료됨 ✔)":"");
- $("missionDone").textContent=data.missionDone?"완료 보상 수령 완료":"미션 완료하기";
-
- renderInventoryList();
- $("studyTotal").textContent=`누적 집중 시간: ${data.studyMinutes||0}분`;
-}
-
-function addAffection(n){data.affection=Math.max(0,(data.affection||0)+n);checkAffectionRewards();persist();render();}
-
-function checkAffectionRewards(){
- if(data.affection>0 && data.affection%10===0){
-   let gift=GIFT_TYPES[Math.floor(Math.random()*GIFT_TYPES.length)];
-   data.inventory.push(gift.id);
-   alert(`호감도 상승 보상으로 [${gift.name}] 선물이 인벤토리에 들어왔어[span_13](start_span)[span_13](end_span)!`);
- }
-}
-
-function random(arr){return arr[Math.floor(Math.random()*arr.length)];}
-
-$("talk").onclick=()=>{
- data.todayTalkCount=(data.todayTalkCount||0)+1;
- $("line").textContent=random(data.dialogues.length?data.dialogues:defaults.dialogues);
- addAffection(1);
-};
-
-$("pat").onclick=()=>{
- $("line").textContent=random(["헤헤, 간지러워.","네 손길 따뜻해서 좋아.","기분이 좋아졌어!"]);
- addAffection(2);
-};
-
-$("checkin").onclick=()=>{
- let t=todayISO();
- if(data.checkins.includes(t)){alert("오늘은 이미 출석했어!");return;}
- data.checkins.push(t);
- data.affection+=3;
- let randomGift=GIFT_TYPES[Math.floor(Math.random()*GIFT_TYPES.length)].id;
- data.inventory.push(randomGift);
- persist();
- render();
- $("line").textContent="출석 체크 완료! 선물도 하나 챙겨뒀어[span_14](start_span)[span_14](end_span).";
-};
-
-$("checkMood").onclick=()=>{
- $("line").textContent=`오늘 니노의 기분은 '${data.lastMood}'이야. 하루에 한 번만 바뀐답니다[span_15](start_span)[span_15](end_span)!`;
-};
-
-$("openGiftModal").onclick=()=>{
- if(!data.inventory.length){
-   alert("보유한 선물이 없어! 출석이나 미션을 완료해서 선물을 얻어봐[span_16](start_span)[span_16](end_span).");
-   return;
- }
- let giftNames = data.inventory.map((gId, idx)=>{
-   let g=GIFT_TYPES.find(x=>x.id===gId);
-   return `${idx+1}. ${g?g.name:gId}`;
- }).join("\n");
- 
- let choice = prompt(`선물할 물건 번호를 선택해줘[span_17](start_span)[span_17](end_span):\n\n${giftNames}`);
- if(choice===null)return;
- let idx = parseInt(choice)-1;
- if(isNaN(idx)||idx<0||idx>=data.inventory.length){
-   alert("올바른 번호를 입력해 줘.");
-   return;
- }
- let usedId = data.inventory.splice(idx,1)[0];
- let giftObj = GIFT_TYPES.find(x=>x.id===usedId);
- $("line").textContent=`${giftObj.name}을(를) 선물했다! 니노: "${giftObj.msg}[span_18](start_span)"[span_18](end_span)`;
- addAffection(5);
- render();
-};
-
-function renderInventoryList(){
- let box=$("inventoryList");
- box.innerHTML="";
- if(!data.inventory.length){
-   box.innerHTML='<span class="muted" style="font-size:12px">선물이 없어. 미션이나 출석으로 얻어봐[span_19](start_span)[span_19](end_span)!</span>';
-   return;
- }
- data.inventory.forEach(gId=>{
-   let g=GIFT_TYPES.find(x=>x.id===gId);
-   if(!g)return;
-   let span=document.createElement("span");
-   span.className="inventory-item";
-   span.textContent=g.name;
-   box.append(span);
- });
-}
-
-$("missionDone").onclick=()=>{
- if(data.missionDone){alert("오늘 미션은 이미 완료했어!");return;}
- let currentMission=MISSIONS[data.missionId];
- if(currentMission.check(data)){
-   data.missionDone=true;
-   let earnedGift=GIFT_TYPES[Math.floor(Math.random()*GIFT_TYPES.length)].id;
-   data.inventory.push(earnedGift);
-   data.affection+=5;
-   persist();
-   render();
-   alert("미션 완료! 보상으로 호감도와 선물이 지급됐어[span_20](start_span)[span_20](end_span).");
- }else{
-   alert("아직 미션 조건을 달성하지 못했어! 조건을 확인해 봐.");
- }
-};
-
-function renderPhotos(){
- let grid=$("photoGrid");
- grid.innerHTML="";
- if(!data.photos.length){
-   grid.innerHTML='<p class="muted">업로드된 사진이 없어. 설정에서 사진을 추가해 줘.</p>';
-   return;
- }
- data.photos.forEach(p=>{
-   let div=document.createElement("div");
-   div.className="photo";
-   let img=document.createElement("img");img.src=p.src;img.alt=p.name;
-   let title=document.createElement("p");title.textContent=p.name;
-   let del=document.createElement("button");del.className="ghost";del.textContent="삭제";
-   del.onclick=()=>{
-     if(confirm("이 사진을 삭제할까?")){
-       data.photos=data.photos.filter(x=>x.id!==p.id);
-       persist(); render(); renderPhotos();
-     }
-   };
-   div.append(img,title,del);
-   grid.append(div);
- });
-}
-
-$("photoFiles").addEventListener("change",async e=>{
- for(const f of [...e.target.files]){
-   if(!f.type.startsWith("image/"))continue;
-   let src=await new Promise((resolve,reject)=>{
-     let r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(f);
-   });
-   data.photos.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),name:f.name.replace(/\.[^.]+$/,""),src});
- }
- persist(); render(); renderPhotos();
- e.target.value="";
- alert("사진이 추가되었어!");
-});
-
-function loadSettings(){
- $("characterName").value=data.name||"니노";
- $("customGreeting").value=data.greeting||"";
- $("dialogueInput").value=(data.dialogues||[]).join("\n");
- $("focusMinutes").value=data.focusMinutes||25;
- $("breakMinutes").value=data.breakMinutes||5;
-}
-
-$("saveSettings").onclick=()=>{
- data.name=$("characterName").value.trim()||"니노";
- data.greeting=$("customGreeting").value.trim()||"니노의 방";
- data.dialogues=$("dialogueInput").value.split("\n").map(s=>s.trim()).filter(Boolean);
- data.focusMinutes=Math.max(1,Math.min(180,Number($("focusMinutes").value)||25));
- data.breakMinutes=Math.max(1,Math.min(60,Number($("breakMinutes").value)||5));
- persist(); resetTimer(); render();
- alert("설정을 저장했어.");
-};
-
-function renderDiary(){
- let date=$("diaryDate").value||todayISO();
- $("diaryDate").value=date;
- $("diaryText").value=data.diaries[date]||"";
- let list=$("diaryList");
- list.innerHTML="<h3 class='section-title' style='font-size:14px'>저장된 일기 목록</h3>";
- Object.keys(data.diaries).sort().reverse().forEach(d=>{
-   let p=document.createElement("p");p.textContent=`${d}: ${data.diaries[d]}`;
-   list.append(p);
- });
- let ml=$("memoList");
- ml.innerHTML="<h3 class='section-title' style='font-size:14px'>메모 목록</h3>";
- data.memos.forEach((m,i)=>{
-   let row=document.createElement("div");row.style.borderTop="1px solid var(--line)";row.style.padding="6px 0";
-   let p=document.createElement("p");p.textContent=m.text;
-   let b=document.createElement("button");b.className="ghost";b.textContent="삭제";b.onclick=()=>{data.memos.splice(i,1);persist();renderDiary();};
-   row.append(p,b);ml.append(row);
- });
-}
-$("diaryDate").onchange=()=>{let d=$("diaryDate").value;$("diaryText").value=data.diaries[d]||"";};
-$("saveDiary").onclick=()=>{let d=$("diaryDate").value\vert{}\vert{}todayISO();data.diaries[d]=$("diaryText").value;persist();renderDiary();alert("일기를 저장했어.");};
-$("saveMemo").onclick=()=>{let t=$("memoText").value.trim();if(!t)return;data.memos.unshift({text:t,date:todayISO()});$("memoText").value="";persist();renderDiary();};
-
-const fortunes=["작은 성취가 큰 기쁨으로 이어지는 날.","오늘은 좋아하는 음식을 먹어봐!","뜻밖의 행운이 찾아올 지도 몰라[span_21](start_span)[span_21](end_span).","충분한 휴식이 최고의 보약이야."];
-const scenarios=["니노가 창밖을 보며 노래를 흥얼거리고 있어.","방 안에서 조용히 책을 읽다 눈이 마주쳤다.","간식 타임을 맞아 니노가 무언가를 기대하고 있어."];
-$("fortuneBtn").onclick=()=>{$("fortuneText").textContent=random(fortunes);};
-$("scenarioBtn").onclick=()=>{$("scenarioText").textContent=random(scenarios);$("line").textContent=$("scenarioText").textContent;};
-
-let timerInt=null,seconds=25*60,mode="focus",running=false;
-function resetTimer(){clearInterval(timerInt);timerInt=null;running=false;mode="focus";seconds=(data.focusMinutes||25)*60;updateTimer();}
-function updateTimer(){
- $("timerDisplay").textContent=`${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`;
- $("timerMode").textContent=mode==="focus"?"집중 시간":"휴식 시간";
- $("timerStart").textContent=running?"진행 중":"시작";
-}
-$("timerStart").onclick=()=>{
- if(running)return;
- running=true;
- timerInt=setInterval(()=>{
-   seconds--;
-   updateTimer();
-   if(seconds<=0){
-     clearInterval(timerInt);
-     timerInt=null;
-     running=false;
-     if(mode==="focus"){
-       let addedMin=data.focusMinutes||25;
-       data.studyMinutes=(data.studyMinutes||0)+addedMin;
-       data.currentSessionMinutes=(data.currentSessionMinutes||0)+addedMin;
-       persist();
-       mode="break";
-       seconds=(data.breakMinutes||5)*60;
-       $("timerMessage").textContent="집중 완료! 수고했어. 휴식 시간이야.";
-       addAffection(2);
-     }else{
-       mode="focus";
-       seconds=(data.focusMinutes||25)*60;
-       $("timerMessage").textContent="휴식 종료! 다시 집중해볼까?";
-     }
-     updateTimer();
-     render();
-   }
- },1000);
- updateTimer();
-};
-$("timerPause").onclick=()=>{clearInterval(timerInt);timerInt=null;running=false;updateTimer();};
-$("timerReset").onclick=resetTimer;
-
-$("exportData").onclick=()=>{
- let copy={...data,photos:[]};
- let blob=new Blob([JSON.stringify(copy,null,2)],{type:"application/json"});
- let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="nino-tamagochi-backup.json";a.click();
-};
-$("importData").onchange=async e=>{
- let f=e.target.files[0];if(!f)return;
- try{
-   let imported=JSON.parse(await f.text());
-   data={...defaults,...imported,photos:data.photos};
-   persist();loadSettings();render();alert("백업 복원 완료!");
- }catch(err){alert("백업 파일 오류");}
- e.target.value="";
-};
-$("resetData").onclick=()=>{
- if(confirm("모든 데이터를 초기화할까요?")){
-   localStorage.removeItem("ninoTamagochiData");
-   data={...defaults,photos:[]};
-   persist();loadSettings();render();renderPhotos();renderDiary();resetTimer();
- }
-};
-
-$("diaryDate").value=todayISO();
-loadSettings();
-render();
-renderPhotos();
-renderDiary();
-resetTimer();
-</script>
-</body>
-</html>
+(()=>{const $=id=>document.getElementById(id);const gifts=[['flowers','💐','작은 꽃다발'],['snack','🍪','간식 상자'],['drink','☕','따뜻한 음료'],['book','📚','작은 책'],['keyring','⭐','별 모양 키링'],['playlist','🎧','음악 플레이리스트'],['plant','🪴','미니 화분']].map(([id,emoji,name])=>({id,emoji,name}));const missions=[{id:'focus15',title:'15분 이상 집중하기',desc:'집중 타이머를 사용해 총 15분 이상 집중해 봐.',type:'focus',goal:15,unit:'분'},{id:'session',title:'집중 타이머 한 세션 완료하기',desc:'설정한 집중 타이머를 끝까지 완료해 봐.',type:'session',goal:1,unit:'회'},{id:'review',title:'오늘 배운 내용 복습하기',desc:'오늘 배운 내용을 다시 읽고 핵심을 확인해 봐.',type:'manual',goal:1,unit:'회'},{id:'vocab',title:'영단어 10개 확인하기',desc:'영단어 10개를 뜻과 함께 확인해 봐.',type:'manual',goal:1,unit:'회'},{id:'wrong',title:'틀린 문제 다시 풀기',desc:'전에 틀렸던 문제 하나를 풀이까지 다시 확인해 봐.',type:'manual',goal:1,unit:'회'},{id:'plan',title:'내일 할 일 3개 적기',desc:'내일 꼭 할 일 세 가지를 간단하게 적어 봐.',type:'manual',goal:1,unit:'회'},{id:'tidy',title:'책상 정리하기',desc:'공부하기 편하게 책상 위를 정리해 봐.',type:'manual',goal:1,unit:'회'},{id:'read',title:'책 10분 읽기',desc:'교과서나 읽고 싶은 책을 10분 이상 읽어 봐.',type:'manual',goal:1,unit:'회'},{id:'stretch',title:'잠깐 몸 풀기',desc:'공부 중간에 가볍게 스트레칭하며 쉬어 봐.',type:'manual',goal:1,unit:'회'},{id:'summary',title:'개념 하나 요약하기',desc:'오늘 공부한 개념 하나를 네 말로 짧게 정리해 봐.',type:'manual',goal:1,unit:'회'},{id:'english',title:'영어 지문 한 문단 읽기',desc:'영어 지문 한 문단을 읽고 중심 내용을 확인해 봐.',type:'manual',goal:1,unit:'회'}];const moods=['기분 좋은 날','조금 졸린 날','차분한 날','의욕이 생기는 날','느긋한 날','생각이 많은 날','장난치고 싶은 날'];const lines=['오늘도 와 줬네. 조금 더 있다 가.','무리하지 말고 네 속도로 해.','잠깐 쉬어 가도 괜찮아.','네가 좋아하는 노래를 듣고 싶다.','오늘은 조금 더 집중해 볼까?'];const date=()=>new Date().toLocaleDateString('sv-SE');const key=date();const fresh=()=>({name:'니노',greeting:'네가 와서 기뻐.',dialogue:'오늘도 와 줬네. 조금 더 있다 가.',affection:0,days:0,attendanceDate:'',moodDate:'',mood:'',missionDate:'',missionId:'',missionProgress:0,missionDoneDate:'',focusMinutes:0,focusByDate:{},sessionsByDate:{},gifts:{},claimedMilestones:[],photoData:'',focusDuration:25,breakDuration:5,lastVisit:''});let s;try{s={...fresh(),...JSON.parse(localStorage.getItem('ninoRoomV2')||'{}')}}catch(e){s=fresh()}let remaining=(+s.focusDuration||25)*60,running=false,handle=null,mode='focus';const save=()=>{try{localStorage.setItem('ninoRoomV2',JSON.stringify(s))}catch(e){alert('저장 공간이 부족해. 이미지를 더 작게 줄여 줘.')}};const rand=a=>a[Math.floor(Math.random()*a.length)];const giftCount=()=>gifts.reduce((n,g)=>n+(+s.gifts[g.id]||0),0);const todayFocus=()=>+s.focusByDate[key]||0;const todaySessions=()=>+s.sessionsByDate[key]||0;function addGift(){let g=rand(gifts);s.gifts[g.id]=(s.gifts[g.id]||0)+1;return g.emoji+' '+g.name}function milestones(){[10,25,50,100].forEach(n=>{if(s.affection>=n&&!s.claimedMilestones.includes(n)){s.claimedMilestones.push(n);let g=addGift();setTimeout(()=>alert('호감도 '+n+' 달성! '+g+'을(를) 받았어.'),50)}})}function daily(){if(s.moodDate!==key){s.mood=rand(moods);s.moodDate=key}if(s.missionDate!==key){let m=rand(missions);s.missionDate=key;s.missionId=m.id;s.missionProgress=0;s.missionDoneDate=''}if(s.lastVisit!==key){s.lastVisit=key;save()}}function mission(){return missions.find(m=>m.id===s.missionId)||missions[0]}function updateProgress(){let m=mission();if(m.type==='focus')s.missionProgress=Math.min(m.goal,todayFocus());if(m.type==='session')s.missionProgress=Math.min(m.goal,todaySessions())}function renderGifts(){let sel=$('giftSelect'),old=sel.value;sel.innerHTML='';gifts.forEach(g=>{let n=+s.gifts[g.id]||0,o=document.createElement('option');o.value=g.id;o.textContent=`${g.emoji} ${g.name} × ${n}`;o.disabled=n===0;sel.appendChild(o)});if(old&&s.gifts[old]>0)sel.value=old;$('giftCountText').textContent=giftCount()?`선물 ${giftCount()}개 보유 중`:'보유한 선물이 없어.';$('giveGift').disabled=!giftCount()}function renderMission(){let m=mission();updateProgress();$('missionTitle').textContent=m.title;$('missionDesc').textContent=m.desc;$('missionProgress').style.width=Math.min(100,Math.round(s.missionProgress/m.goal*100))+'%';let done=s.missionDoneDate===key;$('missionStatus').textContent=done?'완료! 보상을 받았어':(m.type==='manual'?'수행한 뒤 완료 버튼을 눌러 줘':`진행 ${Math.min(m.goal,s.missionProgress)} / ${m.goal} ${m.unit}`);$('missionComplete').disabled=done||(m.type!=='manual'&&s.missionProgress<m.goal);$('missionComplete').textContent=done?'오늘 미션 완료':(m.type==='manual'?'수행 완료 · 보상 받기':'미션 완료 받기')}function renderCharacter(){let src=s.photoData||'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAKgCAYAAADtZMUUAAAABmJLR0QA/wD/AP+gvaeTAAAUzElEQVR4nO3dQail513H8femB6FDwCmBmUgJGZSYhcm0meJGGGgjk1pNaHAxpQ66MDVKxBS7CFEX4qJtqGBpaguJiQtl0MyqZZqUEqyFSDclt0k6LqalOjGIvYHgREIKgr2uks7cuTO59zzvOf/3eX+fz6b0pu+8T+ece+83z/M/52wMQJmtU8e2q9fQ4vDpzY3qNQDLua56AQDA+gkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACDQonoB9G3r1LHt6jW0OHx6c6N6DdTx/CWZHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQD5Lmia9f5469Ozw6U0/w1maHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQIvqBdC34698oPT+z930fNP11es/f/cPm65/9cWLI62kRvXff+/Pn2HYLL4/PbMDAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBoo3oBtNk6dWy75frWzzM///RvNV0//PXrbdcXu/XrT1cvoWueP23Pn+duen6klfTp8OlNv8Ma2AEAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACLSoXgBtjr/ygdoFdP557BTz/GlS/f3/3E3Pl96fNnYAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAItqhfQu61Tx7Yr73/8lbbrz9/9oabrb/3a0233/8hvNF3f6tavt62fNq1//70/f9q///656Xqy2QEAgEACAAACCQAACCQA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';$('roomCharacter').src=s.photoData||'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAKgCAYAAADtZMUUAAAABmJLR0QA/wD/AP+gvaeTAAAUzElEQVR4nO3dQail513H8femB6FDwCmBmUgJGZSYhcm0meJGGGgjk1pNaHAxpQ66MDVKxBS7CFEX4qJtqGBpaguJiQtl0MyqZZqUEqyFSDclt0k6LqalOjGIvYHgREIKgr2uks7cuTO59zzvOf/3eX+fz6b0pu+8T+ece+83z/M/52wMQJmtU8e2q9fQ4vDpzY3qNQDLua56AQDA+gkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACDQonoB9G3r1LHt6jW0OHx6c6N6DdTx/CWZHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQD5Lmia9f5469Ozw6U0/w1maHQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQIvqBdC34698oPT+z930fNP11es/f/cPm65/9cWLI62kRvXff+/Pn2HYLL4/PbMDAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBoo3oBtNk6dWy75frWzzM///RvNV0//PXrbdcXu/XrT1cvoWueP23Pn+duen6klfTp8OlNv8Ma2AEAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACLSoXgBtjr/ygdoFdP557BTz/GlS/f3/3E3Pl96fNnYAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAItqhfQu61Tx7Yr73/8lbbrz9/9oabrb/3a0233/8hvNF3f6tavt62fNq1//70/f9q///656Xqy2QEAgEACAAACCQAACCQA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';$('preview').src=src}function renderTimer(){let mm=String(Math.floor(remaining/60)).padStart(2,'0'),ss=String(remaining%60).padStart(2,'0');$('timer').textContent=mm+':'+ss;$('timerLabel').textContent=mode==='focus'?'집중할 시간':'잠깐 쉬어 가기';let d=(mode==='focus'?s.focusDuration:s.breakDuration)*60,deg=Math.max(0,Math.min(360,(d-remaining)/d*360));$('ring').style.background=`conic-gradient(#f2a9c2 ${deg}deg,#b8e6d7 ${deg}deg,#f7e9ee ${deg}deg)`;$('startTimer').disabled=running;$('startTimer').textContent=running?'진행 중':'시작'}function render(){daily();$('dateLabel').textContent=new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'long'});$('displayName').textContent=s.name;$('greeting').textContent=s.greeting;$('speech').textContent=s.greeting;$('affection').textContent=s.affection;$('affectionTop').textContent=s.affection;$('days').textContent=s.days+'일';$('focusTotal').textContent=s.focusMinutes+'분';$('giftTotal').textContent=giftCount()+'개';$('attendanceLabel').textContent=s.attendanceDate===key?'오늘 출석 완료':'출석 전';$('attendanceBtn').disabled=s.attendanceDate===key;$('attendanceBtn').textContent=s.attendanceDate===key?'오늘 출석 완료':'오늘 출석하기';$('dayMood').textContent=s.mood;$('todayFocus').textContent=todayFocus()+'분';$('sessionCount').textContent=todaySessions()+'회';$('focusDurationLabel').textContent=s.focusDuration;$('breakDurationLabel').textContent=s.breakDuration;$('nameInput').value=s.name;$('greetingInput').value=s.greeting;$('dialogueInput').value=s.dialogue;$('focusDuration').value=s.focusDuration;$('breakDuration').value=s.breakDuration;renderCharacter();renderGifts();renderMission();renderTimer()}function stop(){if(handle)clearInterval(handle);handle=null;running=false}function tick(){remaining--;if(remaining<=0){stop();if(mode==='focus'){let mins=+s.focusDuration||25;s.focusMinutes=(+s.focusMinutes||0)+mins;s.focusByDate[key]=(s.focusByDate[key]||0)+mins;s.sessionsByDate[key]=(s.sessionsByDate[key]||0)+1;s.affection+=2;updateProgress();milestones();mode='break';remaining=s.breakDuration*60;save();render();alert('집중 세션 완료! 집중 기록과 호감도를 받았어.')}else{mode='focus';remaining=s.focusDuration*60;render();alert('휴식 시간이 끝났어. 다음 집중을 시작해 보자.')}return}renderTimer()}document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+b.dataset.tab))});$('petBtn').onclick=()=>{$('speech').textContent=s.dialogue||rand(lines);s.affection++;milestones();save();render()};$('attendanceBtn').onclick=()=>{if(s.attendanceDate===key)return;s.attendanceDate=key;s.days++;s.affection+=2;let g=addGift();milestones();save();render();alert('출석 완료! 호감도 +2, '+g+'을(를) 받았어.')};$('missionComplete').onclick=()=>{let m=mission();updateProgress();if(s.missionDoneDate===key)return;if(m.type==='manual')s.missionProgress=m.goal;if(s.missionProgress<m.goal)return;s.missionDoneDate=key;s.affection+=5;let g=addGift();milestones();save();render();alert('미션 완료! 호감도 +5, '+g+'을(를) 받았어.')};$('giveGift').onclick=()=>{let g=gifts.find(x=>x.id===$('giftSelect').value);if(!g||!(s.gifts[g.id]>0))return;s.gifts[g.id]--;s.affection+=4;milestones();save();render();$('speech').textContent=`${g.emoji} ${g.name} 고마워. 소중히 간직할게.`};$('startTimer').onclick=()=>{if(running)return;running=true;handle=setInterval(tick,1000);renderTimer()};$('pauseTimer').onclick=()=>{stop();renderTimer()};$('resetTimer').onclick=()=>{stop();mode='focus';remaining=s.focusDuration*60;renderTimer()};$('saveSettings').onclick=()=>{s.name=$('nameInput').value.trim()||'니노';s.greeting=$('greetingInput').value.trim()||'네가 와서 기뻐.';s.dialogue=$('dialogueInput').value.trim()||rand(lines);s.focusDuration=Math.max(1,Math.min(120,parseInt($('focusDuration').value)||25));s.breakDuration=Math.max(1,Math.min(60,parseInt($('breakDuration').value)||5));stop();mode='focus';remaining=s.focusDuration*60;save();render();alert('설정을 저장했어.')};$('resetSettings').onclick=()=>{s.name='니노';s.greeting='네가 와서 기뻐.';s.dialogue='오늘도 와 줬네. 조금 더 있다 가.';s.focusDuration=25;s.breakDuration=5;save();render()};$('photoInput').onchange=e=>{let f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>3*1024*1024){alert('3MB 이하의 이미지를 선택해 줘.');e.target.value='';return}let r=new FileReader();r.onload=()=>{s.photoData=r.result;save();renderCharacter()};r.readAsDataURL(f)};$('removePhoto').onclick=()=>{s.photoData='';$('photoInput').value='';save();renderCharacter()};$('exportData').onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(s,null,2)],{type:'application/json'}));a.download='nino-room-backup.json';a.click();URL.revokeObjectURL(a.href)};$('importFile').onchange=e=>{let f=e.target.files&&e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{s={...fresh(),...JSON.parse(r.result)};save();stop();mode='focus';remaining=s.focusDuration*60;render();alert('백업을 불러왔어.')}catch(err){alert('백업 파일을 읽지 못했어.')}};r.readAsText(f);e.target.value=''};$('resetAll').onclick=()=>{if(!confirm('호감도, 출석, 미션, 선물 기록을 모두 초기화할까?'))return;s=fresh();save();stop();mode='focus';remaining=25*60;render()};daily();render()})();
+</script></body></html>
